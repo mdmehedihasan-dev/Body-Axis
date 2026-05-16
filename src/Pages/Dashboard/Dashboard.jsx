@@ -5,7 +5,6 @@ import { CreditCardPosIcon } from '@hugeicons/core-free-icons';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import RecentMoomentOnboarding from '../../Components/Dashboard/RecentMoomentOnboarding';
-import EventMap from '../../Components/Dashboard/EventMap';
 import StatsCard from '../../Components/Dashboard/StatsCard';
 
 export default function Dashboard() {
@@ -249,18 +248,8 @@ export default function Dashboard() {
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 gap-6 mb-8 lg:grid-cols-3">
-
-          {/* Recent Mooment Onboarding (Takes 2 columns) */}
-          <div className="lg:col-span-2">
-            <RecentMoomentOnboarding />
-          </div>
-
-          {/* Event Map (Takes 1 column) */}
-          <div className="lg:col-span-1">
-            <EventMap />
-          </div>
-
+        <div className="grid grid-cols-1 gap-6 mb-8">
+          <RecentMoomentOnboarding />
         </div>
       </div>
     </div>

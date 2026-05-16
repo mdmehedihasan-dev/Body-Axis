@@ -17,8 +17,6 @@ const Header = ({ showDrawer }) => {
         return { title: "Dashboard Overview", subtitle: "Platform Overview" };
       case '/user-management':
         return { title: "User Management", subtitle: "Manage personnel access credentials" };
-      case '/settings':
-        return { title: "Settings", subtitle: "Configure platform preferences" };
       default:
         // Handle dynamic routes
         if (path.startsWith('/user-management/')) {

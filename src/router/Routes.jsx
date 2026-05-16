@@ -6,7 +6,6 @@ import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import VerifyCode from "../Pages/Auth/VerifyCode/VerifyCode";
 import NewPass from "../Pages/Auth/NewPass/NewPass";
-import Settings from "../Pages/Settings/Settings";
 import UserManagement from "../Pages/UserManagement/UserManagement";
 import UserDetails from "../Pages/UserManagement/UserDetails";
 import EventDetails from "../Pages/UserManagement/EventDetails";
@@ -40,7 +39,6 @@ export const router = createBrowserRouter([
           { path: "/user-management", element: <UserManagement /> },
           { path: "/user-management/:id", element: <UserDetails /> },
           { path: "/event-details/:id", element: <EventDetails /> },
-          { path: "/settings", element: <Settings/> },
         ],
       },
     ],

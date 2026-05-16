@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import {
   LayoutGrid,
   Users,
-  Settings,
   ChevronDown,
   PanelLeftClose
 } from "lucide-react";
@@ -24,7 +23,6 @@ const Sidebar = ({ closeDrawer }) => {
       title: "CORE",
       items: [
         { icon: <Users size={20} />, label: "User Management", Link: "/user-management" },
-        { icon: <Settings size={20} />, label: "Settings", Link: "/settings" },
       ]
     }
   ];
