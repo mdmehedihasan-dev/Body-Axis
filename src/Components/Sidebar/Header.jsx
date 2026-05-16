@@ -1,45 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { Bell, ArrowLeft } from "lucide-react";
+import { Bell, Search } from "lucide-react";
 import adminImage from "../../assets/image/adminkickclick.jpg";
 
 const Header = ({ showDrawer }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [notificationsCount] = useState(5);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const getPageTitle = (path) => {
-    switch (path) {
-      case '/':
-      case '/dashboard':
-        return { title: "Dashboard Overview", subtitle: "Platform Overview" };
-      case '/user-management':
-        return { title: "User Management", subtitle: "Manage personnel access credentials" };
-      default:
-        // Handle dynamic routes
-        if (path.startsWith('/user-management/')) {
-          return { 
-            title: "Detail of user", 
-            subtitle: "This section will help you to view information of the user",
-            showBack: true,
-            backPath: '/user-management'
-          };
-        }
-        if (path.startsWith('/event-details/')) {
-          return { 
-            title: "Details of Event", 
-            subtitle: "This section will help you to view information of the event",
-            showBack: true,
-            backPath: -1 
-          };
-        }
-        return { title: "Xenog Dashboard", subtitle: "Admin Portal" };
-    }
-  };
-
-  const { title, subtitle, showBack, backPath } = getPageTitle(location.pathname);
 
   const notifications = [
     { message: "A new user joined your app.", time: "Fri, 12:30pm" },
@@ -49,70 +16,82 @@ const Header = ({ showDrawer }) => {
   ];
 
   return (
-    <div className="relative bg-[#1E1E2D] border-b border-gray-800">
-      <div className="flex items-center justify-between p-6">
-        <div className="flex items-center gap-6">
-          <RxHamburgerMenu
-            className="text-2xl text-gray-500 cursor-pointer lg:hidden"
-            onClick={showDrawer}
-          />
-          <div className="flex items-center gap-4">
-            {showBack && (
-              <button 
-                onClick={() => navigate(backPath)}
-                className="p-2.5 bg-gray-50 dark:bg-[#2D2D3F] rounded-xl text-gray-400 hover:text-[#6D67E4] transition-all hover:bg-gray-100 dark:hover:bg-[#3D3D4F]"
-              >
-                <ArrowLeft size={20} />
-              </button>
-            )}
-            <div className="space-y-1">
-              <h2 className="font-bold text-[#1A1A4B] dark:text-white text-2xl tracking-tight transition-colors">
-                {title}
-              </h2>
-              <p className="text-sm font-medium text-gray-400">{subtitle}</p>
-            </div>
+    <div className="relative bg-[#0A0D14] h-[88px] flex items-center justify-between px-8 shadow-sm">
+      <div className="flex items-center gap-6 flex-1">
+        <RxHamburgerMenu
+          className="text-2xl text-gray-500 cursor-pointer lg:hidden"
+          onClick={showDrawer}
+        />
+        
+        {/* Search Bar */}
+        <div className="relative w-96 hidden md:block">
+          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <Search size={18} className="text-[#94A3B8]" />
           </div>
-        </div>
-        <div className="flex items-center gap-6">
-          <button
-            className="relative p-2.5 transition bg-gray-50 dark:bg-[#2D2D3F] rounded-xl hover:bg-gray-100 dark:hover:bg-[#3D3D4F] text-gray-400"
-            onClick={() => setShowNotifications((prev) => !prev)}
-          >
-            <Bell className="text-xl" />
-            {notificationsCount > 0 && (
-              <span className="absolute top-2.5 right-2.5 bg-red-500 h-2 w-2 rounded-full border border-white dark:border-[#1E1E2D]"></span>
-            )}
-          </button>
+          <input
+            type="text"
+            placeholder="Search...."
+            className="w-full bg-[#131B2F] text-white text-[13px] rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:ring-1 focus:ring-blue-500/50 placeholder-[#94A3B8] transition-all"
+          />
         </div>
       </div>
+
+      {/* Right Side */}
+      <div className="flex items-center gap-8">
+        {/* Notifications */}
+        <button
+          className="relative text-[#94A3B8] hover:text-white transition-colors"
+          onClick={() => setShowNotifications((prev) => !prev)}
+        >
+          <Bell size={22} />
+          {notificationsCount > 0 && (
+            <span className="absolute top-0 right-0 bg-red-500 h-2 w-2 rounded-full border border-[#0A0D14]"></span>
+          )}
+        </button>
+
+        {/* Divider */}
+        <div className="h-8 w-[1px] bg-[#1E293B]"></div>
+
+        {/* User Profile */}
+        <div className="flex items-center gap-4 cursor-pointer group">
+          <div className="hidden md:flex flex-col items-end">
+            <span className="text-[14px] font-bold text-white group-hover:text-gray-200 transition-colors">Alex Sterling</span>
+            <span className="text-[10px] font-bold text-[#94A3B8] tracking-wider uppercase">ADMIN</span>
+          </div>
+          <div className="w-11 h-11 rounded-full border border-gray-600 overflow-hidden shadow-lg p-0.5">
+            <img src={adminImage} alt="User" className="w-full h-full rounded-full object-cover" />
+          </div>
+        </div>
+      </div>
+
+      {/* Notifications Dropdown */}
       {showNotifications && (
-        <div className="absolute right-6 top-[88px] z-[60] p-6 bg-[#1E1E2D] rounded-3xl shadow-2xl border border-gray-800 w-80 animate-in fade-in zoom-in duration-200">
-          <div className="flex items-center justify-between pb-4 mb-6 border-b border-gray-50 dark:border-gray-800">
-            <h2 className="text-lg font-bold text-[#1A1A4B] dark:text-white">Notifications</h2>
-            <span className="px-2 py-0.5 bg-red-50 dark:bg-red-900/30 text-red-500 text-[10px] font-bold rounded-full">5 NEW</span>
+        <div className="absolute right-8 top-[80px] z-[60] p-6 bg-[#131B2F] rounded-2xl shadow-2xl border border-[#1E293B] w-80 animate-in fade-in zoom-in duration-200">
+          <div className="flex items-center justify-between pb-4 mb-6 border-b border-[#1E293B]">
+            <h2 className="text-lg font-bold text-white">Notifications</h2>
+            <span className="px-2 py-0.5 bg-red-500/20 text-red-400 text-[10px] font-bold rounded-full">5 NEW</span>
           </div>
           <div className="space-y-6">
             {notifications.map((item, index) => (
               <div key={index} className="flex items-start gap-4">
-                <div className="bg-[#F8F9FD] dark:bg-[#2D2D3F] p-2.5 rounded-xl text-[#6D67E4]">
+                <div className="bg-[#1E293B] p-2.5 rounded-xl text-blue-400">
                   <Bell size={18} />
                 </div>
                 <div className="space-y-1">
-                  <p className="text-[13px] font-bold text-[#5C5C8A] dark:text-gray-200 leading-tight">
+                  <p className="text-[13px] font-bold text-gray-200 leading-tight">
                     {item.message}
                   </p>
-                  <p className="text-[11px] text-gray-300 font-medium">{item.time}</p>
+                  <p className="text-[11px] text-[#94A3B8] font-medium">{item.time}</p>
                 </div>
               </div>
             ))}
           </div>
-          <button className="mt-8 w-full bg-[#1A1A4B] dark:bg-indigo-600 text-white py-3.5 rounded-2xl text-sm font-bold hover:bg-black dark:hover:bg-indigo-700 transition-all shadow-lg shadow-black/10">
+          <button className="mt-8 w-full bg-blue-600 text-white py-3.5 rounded-xl text-sm font-bold hover:bg-blue-700 transition-all shadow-lg shadow-black/10">
             View All Notifications
           </button>
         </div>
       )}
     </div>
-
   );
 };
 
