@@ -9,6 +9,7 @@ import NewPass from "../Pages/Auth/NewPass/NewPass";
 import UserManagement from "../Pages/UserManagement/UserManagement";
 import UserDetails from "../Pages/UserManagement/UserDetails";
 import EventDetails from "../Pages/UserManagement/EventDetails";
+import ProtocolManager from "../Pages/ProtocolManager/ProtocolManager";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,7 @@ export const router = createBrowserRouter([
         children: [
           { path: "/", element: <Dashboard /> },
           { path: "/dashboard", element: <Dashboard /> },
+          { path: "/protocol-manager", element: <ProtocolManager /> },
           { path: "/user-management", element: <UserManagement /> },
           { path: "/user-management/:id", element: <UserDetails /> },
           { path: "/event-details/:id", element: <EventDetails /> },
