@@ -26,7 +26,7 @@ const Settings = () => {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#F8F9FD] dark:bg-[#13131F] p-8 transition-colors duration-300">
+    <div className="min-h-screen bg-[#13131F] p-8">
       <div className="mx-auto max-w-[1400px] flex gap-12">
 
         {/* Workspace Sidebar Navigation */}

@@ -3,13 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import {
   LayoutGrid,
   Users,
-  Info,
   Settings,
   ChevronDown,
   PanelLeftClose
 } from "lucide-react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Analytics01Icon, CreditCardPosIcon, HeadsetIcon } from "@hugeicons/core-free-icons";
 import adminlogo from "../../assets/image/adminlogo.png";
 
 const Sidebar = ({ closeDrawer }) => {
@@ -20,16 +18,12 @@ const Sidebar = ({ closeDrawer }) => {
       title: "MAIN",
       items: [
         { icon: <LayoutGrid size={20} />, label: "Dashboard", Link: "/" },
-        { icon: <HugeiconsIcon icon={Analytics01Icon} size={20} />, label: "Analytics", Link: "/analytics" },
       ]
     },
     {
       title: "CORE",
       items: [
         { icon: <Users size={20} />, label: "User Management", Link: "/user-management" },
-        { icon: <HugeiconsIcon icon={CreditCardPosIcon} size={20} />, label: "Payment Management", Link: "/payment-management" },
-        { icon: <Info size={20} />, label: "Reports", Link: "/report" },
-        { icon: <HugeiconsIcon icon={HeadsetIcon} size={20} />, label: "Support Center", Link: "/support-center" },
         { icon: <Settings size={20} />, label: "Settings", Link: "/settings" },
       ]
     }

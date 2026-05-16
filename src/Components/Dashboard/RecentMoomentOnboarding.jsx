@@ -34,7 +34,7 @@ const RecentMoomentOnboarding = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-[#1E1E2D] rounded-[24px] shadow-sm border border-gray-50 dark:border-gray-800 overflow-hidden relative transition-colors">
+    <div className="bg-[#1E1E2D] rounded-[24px] shadow-sm border border-gray-800 overflow-hidden relative">
       {/* Header */}
       <div className="p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -115,7 +115,7 @@ const RecentMoomentOnboarding = () => {
       {/* Action Modal (More Options) */}
       {isActionOpen && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/40 backdrop-blur-[2px]">
-          <div className="bg-white dark:bg-[#1E1E2D] rounded-[32px] w-full max-w-[400px] p-12 shadow-2xl animate-in fade-in zoom-in duration-300 relative">
+          <div className="bg-[#1E1E2D] rounded-[32px] w-full max-w-[400px] p-12 shadow-2xl animate-in fade-in zoom-in duration-300 relative">
             <button 
               onClick={() => setIsActionOpen(false)}
               className="absolute top-6 right-6 p-2 hover:bg-gray-50 dark:hover:bg-[#2D2D3F] rounded-full transition-colors"
@@ -142,7 +142,7 @@ const RecentMoomentOnboarding = () => {
       {/* Filter Modal */}
       {isFilterOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-[2px]">
-          <div className="bg-white dark:bg-[#1E1E2D] rounded-[32px] w-full max-w-[480px] p-8 shadow-2xl animate-in fade-in zoom-in duration-300">
+          <div className="bg-[#1E1E2D] rounded-[32px] w-full max-w-[480px] p-8 shadow-2xl animate-in fade-in zoom-in duration-300">
             <div className="flex items-center justify-between mb-8">
               <h3 className="text-[22px] font-bold text-[#1A1A4B] dark:text-white transition-colors">Select base on your choice</h3>
               <button onClick={() => setIsFilterOpen(false)} className="p-2 hover:bg-gray-50 dark:hover:bg-[#2D2D3F] rounded-full transition-colors">

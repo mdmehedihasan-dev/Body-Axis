@@ -31,7 +31,7 @@ const MainLayout = () => {
         />
 
         {/* Scrollable Content Section */}
-        <div className="flex-1 overflow-y-auto bg-[#F8F9FD] dark:bg-[#13131F] transition-colors duration-300">
+        <div className="flex-1 overflow-y-auto bg-[#13131F]">
 
           <Outlet />
         </div>

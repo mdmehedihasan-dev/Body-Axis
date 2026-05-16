@@ -22,7 +22,7 @@ const Pricing = () => {
       </div>
 
 
-      <div className="bg-white dark:bg-[#1E1E2D] rounded-[32px] p-10 shadow-sm border border-gray-50 dark:border-gray-800 space-y-8 transition-colors">
+      <div className="bg-[#1E1E2D] rounded-[32px] p-10 shadow-sm border border-gray-800 space-y-8">
         {fields.map((field) => (
           <div key={field.key} className="space-y-2">
             <label className="text-[10px] font-bold text-[#16123E] uppercase tracking-widest px-1">{field.label}</label>
@@ -31,7 +31,7 @@ const Pricing = () => {
               <input
                 type="text"
                 defaultValue="5"
-                className="w-full px-6 py-3.5 bg-white dark:bg-[#2D2D3F] border border-gray-100 dark:border-gray-800 rounded-2xl text-sm font-bold text-[#1A1A4B] dark:text-white outline-none focus:ring-2 focus:ring-[#4B4B8A]/10 shadow-sm transition-colors"
+                className="w-full px-6 py-3.5 bg-[#2D2D3F] border border-gray-800 rounded-2xl text-sm font-bold text-[#1A1A4B] dark:text-white outline-none focus:ring-2 focus:ring-[#4B4B8A]/10 shadow-sm"
               />
             </div>
           </div>

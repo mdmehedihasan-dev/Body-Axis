@@ -51,9 +51,9 @@ const DynamicLegalEditor = ({
       </div>
 
 
-      <div className="bg-white dark:bg-[#1E1E2D] rounded-[32px] p-2 shadow-sm border border-gray-50 dark:border-gray-800 overflow-hidden transition-colors">
+      <div className="bg-[#1E1E2D] rounded-[32px] p-2 shadow-sm border border-gray-800 overflow-hidden">
         <div className="p-4 border-b border-gray-50 dark:border-gray-800 flex items-center gap-4">
-          <select className="bg-[#F8F9FD] dark:bg-[#2D2D3F] border-none text-xs font-bold text-gray-400 rounded-lg px-3 py-1.5 outline-none cursor-pointer transition-colors">
+          <select className="bg-[#2D2D3F] border-none text-xs font-bold text-gray-400 rounded-lg px-3 py-1.5 outline-none cursor-pointer">
             <option>Paragraph</option>
           </select>
           <div className="h-6 w-[1px] bg-gray-100 dark:bg-gray-800 mx-2" />
@@ -88,13 +88,13 @@ const DynamicLegalEditor = ({
 
       <div className="relative py-10 flex items-center justify-center">
         <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-100 dark:border-gray-800"></div></div>
-        <span className="relative bg-[#F8F9FD] dark:bg-[#13131F] px-6 text-[10px] font-bold text-gray-300 uppercase tracking-[0.2em] transition-colors">Display on landing page</span>
+        <span className="relative bg-[#13131F] px-6 text-[10px] font-bold text-gray-300 uppercase tracking-[0.2em]">Display on landing page</span>
       </div>
 
 
       <div className="space-y-6">
         {content.map((item) => (
-          <div key={item.id} className="bg-white dark:bg-[#1E1E2D] rounded-[32px] p-10 shadow-sm border border-gray-50 dark:border-gray-800 relative group animate-in slide-in-from-bottom-4 duration-500 transition-colors">
+          <div key={item.id} className="bg-[#1E1E2D] rounded-[32px] p-10 shadow-sm border border-gray-800 relative group animate-in slide-in-from-bottom-4 duration-500">
             <div className="absolute top-8 right-8 flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <button onClick={() => setEditingText(item.body)} className="p-2.5 bg-[#4B4B8A]/10 dark:bg-indigo-600/10 text-[#4B4B8A] dark:text-indigo-400 rounded-xl hover:bg-[#4B4B8A] dark:hover:bg-indigo-600 hover:text-white transition-all shadow-sm">
                 <Edit3 size={18} />
@@ -111,7 +111,7 @@ const DynamicLegalEditor = ({
         ))}
 
         {content.length === 0 && (
-          <div className="bg-white dark:bg-[#1E1E2D] rounded-[32px] p-20 text-center border border-dashed border-gray-200 dark:border-gray-800 transition-colors">
+          <div className="bg-[#1E1E2D] rounded-[32px] p-20 text-center border border-dashed border-gray-800">
             <FileText size={48} className="mx-auto mb-4 text-gray-200 dark:text-gray-700" />
             <p className="text-gray-400 font-bold">No clauses published yet.</p>
           </div>

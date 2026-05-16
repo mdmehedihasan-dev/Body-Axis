@@ -1,10 +1,8 @@
 import React from 'react';
-import { User, Mail, Phone, Camera, Moon } from 'lucide-react';
+import { User, Mail, Phone, Camera } from 'lucide-react';
 import adminImage from "../../assets/image/adminkickclick.jpg";
-import { useTheme } from '../../context/ThemeContext';
 
 const GeneralSettings = () => {
-  const { isDarkMode, toggleDarkMode } = useTheme();
   const [profileImage, setProfileImage] = React.useState(adminImage);
   const fileInputRef = React.useRef(null);
 
@@ -126,23 +124,6 @@ const GeneralSettings = () => {
           </div>
           <button className="px-5 py-2.5 bg-white dark:bg-[#2D2D3F] border border-[#E2E8F0] dark:border-gray-700 rounded-xl text-[13px] font-bold text-[#64748B] dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#3D3D4F] transition-all">
             Update Password
-          </button>
-        </div>
-      </div>
-
-      {/* Miscellanies Settings Section */}
-      <div className="bg-white dark:bg-[#1E1E2D] rounded-[24px] p-8 shadow-sm border border-[#F1F5F9] dark:border-gray-800">
-        <div className="mb-8">
-          <h3 className="text-[18px] font-bold text-[#1A1A4B] dark:text-white mb-1">Miscellanies settings</h3>
-          <p className="text-[13px] text-[#64748B] font-medium">Personalized your dashboard</p>
-        </div>
-        <div className="flex items-center justify-between pt-6 border-t border-[#F1F5F9] dark:border-gray-800">
-          <p className="text-[15px] font-bold text-[#1A1A4B] dark:text-white">Dark Mode</p>
-          <button 
-            onClick={toggleDarkMode}
-            className={`relative w-11 h-6 rounded-full transition-all duration-300 ${isDarkMode ? 'bg-[#433E6F]' : 'bg-[#CBD5E1]'}`}
-          >
-            <div className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 ${isDarkMode ? 'translate-x-5' : 'translate-x-0'} shadow-sm`} />
           </button>
         </div>
       </div>

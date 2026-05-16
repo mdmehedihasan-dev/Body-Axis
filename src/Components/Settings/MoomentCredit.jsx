@@ -23,7 +23,7 @@ const MoomentCredit = ({ creditPackages, setCreditPackages }) => {
 
 
       {creditPackages.map((pkg, index) => (
-        <div key={pkg.id} className="bg-white dark:bg-[#1E1E2D] rounded-[32px] p-10 shadow-sm border border-gray-50 dark:border-gray-800 space-y-8 relative group transition-colors">
+        <div key={pkg.id} className="bg-[#1E1E2D] rounded-[32px] p-10 shadow-sm border border-gray-800 space-y-8 relative group">
           {index > 0 && (
             <button
               onClick={() => handleDeletePackage(pkg.id)}
@@ -43,7 +43,7 @@ const MoomentCredit = ({ creditPackages, setCreditPackages }) => {
                 type="text"
                 defaultValue={pkg.name}
                 placeholder="25 Mooments credit for"
-                className="w-full px-6 py-3.5 bg-white dark:bg-[#2D2D3F] border border-gray-100 dark:border-gray-800 rounded-2xl text-sm font-bold text-[#1A1A4B] dark:text-white outline-none focus:ring-2 focus:ring-[#4B4B8A]/10 shadow-sm transition-colors"
+                className="w-full px-6 py-3.5 bg-[#2D2D3F] border border-gray-800 rounded-2xl text-sm font-bold text-[#1A1A4B] dark:text-white outline-none focus:ring-2 focus:ring-[#4B4B8A]/10 shadow-sm"
               />
             </div>
 
@@ -53,7 +53,7 @@ const MoomentCredit = ({ creditPackages, setCreditPackages }) => {
                 type="text"
                 defaultValue={pkg.credit}
                 placeholder="25"
-                className="w-full px-6 py-3.5 bg-white dark:bg-[#2D2D3F] border border-gray-100 dark:border-gray-800 rounded-2xl text-sm font-bold text-[#1A1A4B] dark:text-white outline-none focus:ring-2 focus:ring-[#4B4B8A]/10 shadow-sm transition-colors"
+                className="w-full px-6 py-3.5 bg-[#2D2D3F] border border-gray-800 rounded-2xl text-sm font-bold text-[#1A1A4B] dark:text-white outline-none focus:ring-2 focus:ring-[#4B4B8A]/10 shadow-sm"
               />
             </div>
 
@@ -65,7 +65,7 @@ const MoomentCredit = ({ creditPackages, setCreditPackages }) => {
                   type="text"
                   defaultValue={pkg.usd}
                   placeholder="26.25"
-                  className="w-full pl-14 pr-6 py-3.5 bg-white dark:bg-[#2D2D3F] border border-gray-100 dark:border-gray-800 rounded-2xl text-sm font-bold text-[#1A1A4B] dark:text-white outline-none focus:ring-2 focus:ring-[#4B4B8A]/10 shadow-sm transition-colors"
+                  className="w-full pl-14 pr-6 py-3.5 bg-[#2D2D3F] border border-gray-800 rounded-2xl text-sm font-bold text-[#1A1A4B] dark:text-white outline-none focus:ring-2 focus:ring-[#4B4B8A]/10 shadow-sm"
                 />
               </div>
             </div>
@@ -78,7 +78,7 @@ const MoomentCredit = ({ creditPackages, setCreditPackages }) => {
                   type="text"
                   defaultValue={pkg.commission}
                   placeholder="5"
-                  className="w-full px-6 py-3.5 bg-white dark:bg-[#2D2D3F] border border-gray-100 dark:border-gray-800 rounded-2xl text-sm font-bold text-[#1A1A4B] dark:text-white outline-none focus:ring-2 focus:ring-[#4B4B8A]/10 shadow-sm transition-colors"
+                  className="w-full px-6 py-3.5 bg-[#2D2D3F] border border-gray-800 rounded-2xl text-sm font-bold text-[#1A1A4B] dark:text-white outline-none focus:ring-2 focus:ring-[#4B4B8A]/10 shadow-sm"
                 />
               </div>
             </div>

@@ -66,12 +66,12 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen p-8 bg-[#F8F9FD] dark:bg-[#13131F] transition-colors duration-300">
+    <div className="min-h-screen p-8 bg-[#13131F]">
       <div className="mx-auto max-w-[1600px]">
 
         {/* Time Filters */}
         <div className="flex justify-end mb-6">
-          <div className="bg-white dark:bg-[#1E1E2D] p-1 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 flex gap-1 transition-colors">
+          <div className="bg-[#1E1E2D] p-1 rounded-xl shadow-sm border border-gray-800 flex gap-1">
             {timeFilters.map((filter) => (
               <button
                 key={filter}
@@ -90,7 +90,7 @@ export default function Dashboard() {
         {/* Custom Date Modal */}
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-300">
-            <div className="bg-white dark:bg-[#1E1E2D] w-[504px] h-[446px] rounded-[40px] p-6 shadow-2xl animate-in zoom-in-95 duration-300 flex flex-col relative">
+            <div className="bg-[#1E1E2D] w-[504px] h-[446px] rounded-[40px] p-6 shadow-2xl animate-in zoom-in-95 duration-300 flex flex-col relative">
               <h2 className="text-[24px] font-bold text-[#1A1A4B] dark:text-white mb-4">Select Custom Period</h2>
 
               {/* Quick Select */}
@@ -135,7 +135,7 @@ export default function Dashboard() {
                           setShowStartCalendar(!showStartCalendar);
                           setShowEndCalendar(false);
                         }}
-                        className="w-full pl-12 pr-4 py-3 bg-white dark:bg-[#2D2D3F] border border-[#CBD5E1] dark:border-gray-700 rounded-2xl text-[14px] font-medium text-[#64748B] outline-none cursor-pointer hover:border-[#454070] transition-colors"
+                        className="w-full pl-12 pr-4 py-3 bg-[#2D2D3F] border border-gray-700 rounded-2xl text-[14px] font-medium text-[#64748B] outline-none cursor-pointer hover:border-[#454070] transition-colors"
                       />
                       {showStartCalendar && (
                         <div className="absolute top-full left-0 mt-2 z-[100] shadow-2xl rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 animate-in fade-in slide-in-from-top-2 duration-200">
@@ -170,7 +170,7 @@ export default function Dashboard() {
                           setShowEndCalendar(!showEndCalendar);
                           setShowStartCalendar(false);
                         }}
-                        className="w-full pl-12 pr-4 py-3 bg-white dark:bg-[#2D2D3F] border border-[#CBD5E1] dark:border-gray-700 rounded-2xl text-[14px] font-medium text-[#64748B] outline-none cursor-pointer hover:border-[#454070] transition-colors"
+                        className="w-full pl-12 pr-4 py-3 bg-[#2D2D3F] border border-gray-700 rounded-2xl text-[14px] font-medium text-[#64748B] outline-none cursor-pointer hover:border-[#454070] transition-colors"
                       />
                       {showEndCalendar && (
                         <div className="absolute top-full left-0 mt-2 z-[100] shadow-2xl rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 animate-in fade-in slide-in-from-top-2 duration-200">
@@ -192,7 +192,7 @@ export default function Dashboard() {
                   <div className="space-y-2">
                     <p className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-[0.15em] px-1">MONTH</p>
                     <div className="relative">
-                      <select className="w-full px-6 py-3 bg-white dark:bg-[#2D2D3F] border border-[#CBD5E1] dark:border-gray-700 rounded-2xl text-[14px] font-medium text-[#64748B] outline-none appearance-none cursor-pointer hover:border-[#454070] transition-colors">
+                      <select className="w-full px-6 py-3 bg-[#2D2D3F] border border-gray-700 rounded-2xl text-[14px] font-medium text-[#64748B] outline-none appearance-none cursor-pointer hover:border-[#454070] transition-colors">
                         <option>November</option>
                         <option>December</option>
                       </select>
@@ -207,7 +207,7 @@ export default function Dashboard() {
                   <div className="space-y-2">
                     <p className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-[0.15em] px-1">YEAR</p>
                     <div className="relative">
-                      <select className="w-full px-6 py-3 bg-white dark:bg-[#2D2D3F] border border-[#CBD5E1] dark:border-gray-700 rounded-2xl text-[14px] font-medium text-[#64748B] outline-none appearance-none cursor-pointer hover:border-[#454070] transition-colors">
+                      <select className="w-full px-6 py-3 bg-[#2D2D3F] border border-gray-700 rounded-2xl text-[14px] font-medium text-[#64748B] outline-none appearance-none cursor-pointer hover:border-[#454070] transition-colors">
                         <option>2026</option>
                         <option>2025</option>
                       </select>

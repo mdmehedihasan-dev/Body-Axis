@@ -15,16 +15,8 @@ const Header = ({ showDrawer }) => {
       case '/':
       case '/dashboard':
         return { title: "Dashboard Overview", subtitle: "Platform Overview" };
-      case '/analytics':
-        return { title: "Analytics Overview", subtitle: "Monitor your business performance and revenue trends." };
       case '/user-management':
         return { title: "User Management", subtitle: "Manage personnel access credentials" };
-      case '/payment-management':
-        return { title: "Payment Management", subtitle: "Manage payment information" };
-      case '/support-center':
-        return { title: "Support Center", subtitle: "Manage customer support here" };
-      case '/report':
-        return { title: "Report", subtitle: "Manage mooment app report" };
       case '/settings':
         return { title: "Settings", subtitle: "Configure platform preferences" };
       default:
@@ -45,30 +37,6 @@ const Header = ({ showDrawer }) => {
             backPath: -1 
           };
         }
-        if (path.startsWith('/payment-details/')) {
-          return { 
-            title: "Detail of payment", 
-            subtitle: "This section will help you to view information of the user purchased item",
-            showBack: true,
-            backPath: '/payment-management'
-          };
-        }
-        if (path.startsWith('/report-details/')) {
-          return { 
-            title: "Report Details", 
-            subtitle: "This page contain result of the report, so that admin can assess the whole thing.",
-            showBack: true,
-            backPath: '/report'
-          };
-        }
-        if (path.startsWith('/support-message/')) {
-          return { 
-            title: "View Support message", 
-            subtitle: "This section will help you to view message of that client",
-            showBack: true,
-            backPath: '/support-center'
-          };
-        }
         return { title: "Xenog Dashboard", subtitle: "Admin Portal" };
     }
   };
@@ -83,7 +51,7 @@ const Header = ({ showDrawer }) => {
   ];
 
   return (
-    <div className="relative bg-white dark:bg-[#1E1E2D] border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
+    <div className="relative bg-[#1E1E2D] border-b border-gray-800">
       <div className="flex items-center justify-between p-6">
         <div className="flex items-center gap-6">
           <RxHamburgerMenu
@@ -120,7 +88,7 @@ const Header = ({ showDrawer }) => {
         </div>
       </div>
       {showNotifications && (
-        <div className="absolute right-6 top-[88px] z-[60] p-6 bg-white dark:bg-[#1E1E2D] rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 w-80 animate-in fade-in zoom-in duration-200">
+        <div className="absolute right-6 top-[88px] z-[60] p-6 bg-[#1E1E2D] rounded-3xl shadow-2xl border border-gray-800 w-80 animate-in fade-in zoom-in duration-200">
           <div className="flex items-center justify-between pb-4 mb-6 border-b border-gray-50 dark:border-gray-800">
             <h2 className="text-lg font-bold text-[#1A1A4B] dark:text-white">Notifications</h2>
             <span className="px-2 py-0.5 bg-red-50 dark:bg-red-900/30 text-red-500 text-[10px] font-bold rounded-full">5 NEW</span>
