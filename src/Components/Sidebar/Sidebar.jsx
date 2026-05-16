@@ -6,12 +6,10 @@ import {
   ChevronDown,
   PanelLeftClose
 } from "lucide-react";
-import { HugeiconsIcon } from "@hugeicons/react";
-import adminlogo from "../../assets/image/adminlogo.png";
+import adminlogo from "../../assets/image/Body-Axis.png";
 
 const Sidebar = ({ closeDrawer }) => {
   const location = useLocation();
-
   const sections = [
     {
       title: "MAIN",
@@ -38,7 +36,7 @@ const Sidebar = ({ closeDrawer }) => {
       {/* Sidebar Header */}
       <div className="p-8 pb-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img src={adminlogo} alt="Mooment" className="w-40 h-10" />
+          <img src={adminlogo} alt="Body-Axis" className="w-40 h-10" />
           <div className="hidden">
             <h1 className="text-white font-black text-lg tracking-tight italic">Mooment</h1>
             <p className="text-gray-500 text-[10px] font-bold uppercase tracking-wider">Super Admin</p>

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { CheckCircle2, ArrowLeft } from "lucide-react";
-import mainLogo from "../../../assets/image/main_logo.png";
+import mainLogo from "../../../assets/image/Body-Axis.png";
 
 const VerifyCode = () => {
   const [code, setCode] = useState(["", "", "", "", ""]);

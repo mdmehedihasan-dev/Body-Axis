@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Lock, Eye, EyeOff, ShieldCheck, ArrowLeft } from "lucide-react";
-import mainLogo from "../../../assets/image/main_logo.png";
+import mainLogo from "../../../assets/image/Body-Axis.png";
 
 const NewPass = () => {
   const navigate = useNavigate();
