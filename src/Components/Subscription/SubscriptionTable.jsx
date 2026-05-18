@@ -1,14 +1,8 @@
 import React from 'react';
 import { CreditCard, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 
-const SubscriptionTable = ({ subscriptions, filterStatus, setFilterStatus }) => {
+const SubscriptionTable = ({ subscriptions, filterStatus, setFilterStatus, filterPlanType, setFilterPlanType }) => {
   const tabs = ['All Subs', 'Active', 'Expiring', 'Cancelled'];
-
-  // Apply filters
-  const filteredData = subscriptions.filter(sub => {
-    if (filterStatus === 'All Subs') return true;
-    return sub.status.toLowerCase() === filterStatus.toLowerCase();
-  });
 
   return (
     <div>
@@ -34,7 +28,11 @@ const SubscriptionTable = ({ subscriptions, filterStatus, setFilterStatus }) => 
         {/* Dropdowns */}
         <div className="flex items-center gap-3">
           <div className="relative">
-            <select className="bg-[#131B2F] border border-[#1E293B] rounded-xl pl-4 pr-10 py-2.5 text-[13px] font-medium text-[#94A3B8] outline-none appearance-none cursor-pointer hover:border-[#38BDF8] transition-colors">
+            <select 
+              value={filterPlanType}
+              onChange={(e) => setFilterPlanType(e.target.value)}
+              className="bg-[#131B2F] border border-[#1E293B] rounded-xl pl-4 pr-10 py-2.5 text-[13px] font-medium text-[#94A3B8] outline-none appearance-none cursor-pointer hover:border-[#38BDF8] transition-colors"
+            >
               <option>Plan Type</option>
               <option>Monthly Elite</option>
               <option>Yearly Elite</option>
@@ -68,7 +66,7 @@ const SubscriptionTable = ({ subscriptions, filterStatus, setFilterStatus }) => 
               </tr>
             </thead>
             <tbody className="divide-y divide-[#1E293B]">
-              {filteredData.map(sub => (
+              {subscriptions.length > 0 ? subscriptions.map(sub => (
                 <tr key={sub.id} className="hover:bg-[#1E293B]/40 transition-colors group">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-4">
@@ -109,14 +107,20 @@ const SubscriptionTable = ({ subscriptions, filterStatus, setFilterStatus }) => 
                     </div>
                   </td>
                 </tr>
-              ))}
+              )) : (
+                <tr>
+                  <td colSpan="5" className="px-6 py-12 text-center text-[#64748B] text-[13px]">
+                    No subscriptions found matching your filters.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
 
         {/* Footer Pagination */}
         <div className="mt-auto px-6 py-4 border-t border-[#1E293B] flex items-center justify-between">
-          <p className="text-[#64748B] text-[12px] font-bold">Showing {filteredData.length} of 12,458 subscribers</p>
+          <p className="text-[#64748B] text-[12px] font-bold">Showing {subscriptions.length} of 12,458 subscribers</p>
           <div className="flex items-center gap-1">
             <button className="w-8 h-8 flex items-center justify-center rounded-lg text-[#64748B] hover:bg-[#1E293B] hover:text-white transition-colors">
               <ChevronLeft size={16} />

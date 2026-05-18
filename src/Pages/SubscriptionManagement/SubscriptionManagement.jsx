@@ -47,6 +47,46 @@ const mockSubscriptions = [
 
 const SubscriptionManagement = () => {
   const [filterStatus, setFilterStatus] = useState('All Subs');
+  const [filterPlanType, setFilterPlanType] = useState('Plan Type');
+
+  // Apply filters
+  const filteredSubscriptions = mockSubscriptions.filter(sub => {
+    const statusMatch = filterStatus === 'All Subs' || sub.status.toLowerCase() === filterStatus.toLowerCase();
+    const planMatch = filterPlanType === 'Plan Type' || sub.plan === filterPlanType;
+    return statusMatch && planMatch;
+  });
+
+  const handleExportCSV = () => {
+    if (filteredSubscriptions.length === 0) {
+      alert("No data to export!");
+      return;
+    }
+
+    const headers = ['USER', 'EMAIL', 'PLAN TYPE', 'RENEWAL DATE', 'PAYMENT', 'STATUS'];
+    const rows = filteredSubscriptions.map(sub => [
+      `"${sub.name}"`, 
+      `"${sub.email}"`, 
+      `"${sub.plan}"`, 
+      `"${sub.date}"`, 
+      `"${sub.payment}"`, 
+      `"${sub.status}"`
+    ]);
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `subscriptions_export_${new Date().getTime()}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <div className="min-h-screen p-8 bg-[#0A0D14] text-white font-sans">
@@ -58,7 +98,10 @@ const SubscriptionManagement = () => {
             <h1 className="text-[28px] font-bold tracking-tight mb-1">Subscription Management</h1>
             <p className="text-[#94A3B8] text-[13px] font-medium">Manage memberships, billing activity, and subscription performance.</p>
           </div>
-          <button className="flex items-center gap-2 bg-[#131B2F] border border-[#1E293B] hover:bg-[#1E293B] transition-colors text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm whitespace-nowrap">
+          <button 
+            onClick={handleExportCSV}
+            className="flex items-center gap-2 bg-[#131B2F] border border-[#1E293B] hover:bg-[#1E293B] transition-colors text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm whitespace-nowrap"
+          >
             <Download size={16} />
             Export Report
           </button>
@@ -80,9 +123,11 @@ const SubscriptionManagement = () => {
           <div className="lg:col-span-8 flex flex-col h-full">
             <RevenueGrowth />
             <SubscriptionTable 
-              subscriptions={mockSubscriptions}
+              subscriptions={filteredSubscriptions}
               filterStatus={filterStatus}
               setFilterStatus={setFilterStatus}
+              filterPlanType={filterPlanType}
+              setFilterPlanType={setFilterPlanType}
             />
           </div>
 
