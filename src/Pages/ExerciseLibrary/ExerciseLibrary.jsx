@@ -3,41 +3,22 @@ import { PlusCircle, Search, Filter, Dumbbell, Flame, Activity, User, Edit3, Tra
 import StatsCard from '../../Components/Dashboard/StatsCard';
 
 // Generate dynamic dataset
-const generateExercises = () => {
-  return [
-    {
-      id: 'EX-260001',
-      name: 'Supine Pelvic Clocks',
-      bodyAreas: ['Lower Back', 'Shoulder', 'Upper Back', 'Middle Back', 'Neck'],
-      phases: ['Reset'],
-      equipment: <Package size={18} className="text-[#34D399]" />,
-      status: 'Published'
-    },
-    {
-      id: 'EX-260002',
-      name: 'Thoracic Extension',
-      bodyAreas: ['Lower Back', 'Shoulder', 'Upper Back', 'Middle Back', 'Neck'],
-      phases: ['Reset', 'Control'],
-      equipment: <Package size={18} className="text-[#34D399]" />,
-      status: 'Published'
-    },
-    {
-      id: 'EX-260003',
-      name: 'Long-Lever Hamstring Bridge',
-      bodyAreas: ['Lower Back', 'Hamstrings', 'Glutes', 'Hips'],
-      phases: ['Control', 'Integrate'],
-      equipment: <Package size={18} className="text-[#34D399]" />,
-      status: 'Drafted'
-    },
-    {
-      id: 'EX-260004',
-      name: 'Long-Lever Hamstring Bridge',
-      bodyAreas: ['Lower Back', 'Hamstrings', 'Glutes', 'Hips'],
-      phases: ['Control', 'Integrate'],
-      equipment: <Package size={18} className="text-[#34D399]" />,
-      status: 'Published'
-    }
+const generateExercises = (count) => {
+  const names = [
+    'Supine Pelvic Clocks', 'Thoracic Extension', 'Long-Lever Hamstring Bridge',
+    'Dead Bug', 'Bird Dog', 'McGill Curl-Up', 'B-Stance Glute Bridge',
+    'Romanian Deadlift', 'Bulgarian Split Squat', 'Front Rack Carry'
   ];
+  const phasesArr = [['Reset'], ['Reset', 'Control'], ['Control', 'Integrate'], ['Integrate']];
+  
+  return Array.from({ length: count }, (_, i) => ({
+    id: `EX-26${(i + 1).toString().padStart(4, '0')}`,
+    name: names[i % names.length],
+    bodyAreas: ['Lower Back', 'Shoulder', 'Upper Back', 'Middle Back', 'Neck'].slice(0, 1 + (i % 5)),
+    phases: phasesArr[i % phasesArr.length],
+    equipment: <Package size={18} className="text-[#34D399]" />,
+    status: i % 3 === 0 ? 'Drafted' : 'Published'
+  }));
 };
 
 const getPhaseStyle = (phase) => {
@@ -50,10 +31,10 @@ const getPhaseStyle = (phase) => {
 };
 
 const ExerciseLibrary = () => {
-  const [exercises] = useState(generateExercises());
+  const [exercises, setExercises] = useState(generateExercises(24));
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
   const itemsPerPage = 4;
-  const totalItems = 16; // Simulated total
 
   const stats = [
     {
@@ -82,6 +63,49 @@ const ExerciseLibrary = () => {
     }
   ];
 
+  // Search filter
+  const filteredExercises = exercises.filter(ex => 
+    ex.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    ex.id.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredExercises.length / itemsPerPage);
+  
+  // Ensure current page is valid when filtering reduces total pages
+  if (currentPage > totalPages && totalPages > 0) {
+    setCurrentPage(totalPages);
+  }
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredExercises.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(p => p + 1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) setCurrentPage(p => p - 1);
+  };
+
+  const handlePageClick = (num) => {
+    setCurrentPage(num);
+  };
+
+  const handleDelete = (id) => {
+    setExercises(exercises.filter(ex => ex.id !== id));
+  };
+
+  // Generate page numbers for pagination
+  const getPageNumbers = () => {
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(i);
+    }
+    return pages;
+  };
+
   return (
     <div className="min-h-screen p-8 bg-[#0A0D14] text-white">
       <div className="max-w-[1600px] mx-auto animate-in fade-in duration-500">
@@ -97,7 +121,12 @@ const ExerciseLibrary = () => {
               <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#475569]" />
               <input 
                 type="text" 
-                placeholder="Search..." 
+                placeholder="Search exercises..." 
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setCurrentPage(1); // Reset to first page on new search
+                }}
                 className="bg-[#131B2F] border border-[#1E293B] rounded-xl pl-10 pr-4 py-2.5 text-[13px] text-white outline-none focus:border-[#3B82F6] transition-colors w-[240px]"
               />
             </div>
@@ -128,6 +157,7 @@ const ExerciseLibrary = () => {
               <div className="relative">
                 <select className="bg-[#0A0D14] border border-[#1E293B] rounded-xl pl-4 pr-8 py-2 text-[12px] font-medium text-[#94A3B8] outline-none appearance-none cursor-pointer hover:border-[#38BDF8] transition-colors">
                   <option>Shoulder</option>
+                  <option>Lower Back</option>
                 </select>
                 <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#475569] pointer-events-none" />
               </div>
@@ -138,6 +168,8 @@ const ExerciseLibrary = () => {
               <div className="relative">
                 <select className="bg-[#0A0D14] border border-[#1E293B] rounded-xl pl-4 pr-8 py-2 text-[12px] font-medium text-[#94A3B8] outline-none appearance-none cursor-pointer hover:border-[#38BDF8] transition-colors">
                   <option>Reset</option>
+                  <option>Control</option>
+                  <option>Integrate</option>
                 </select>
                 <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#475569] pointer-events-none" />
               </div>
@@ -148,6 +180,7 @@ const ExerciseLibrary = () => {
               <div className="relative">
                 <select className="bg-[#0A0D14] border border-[#1E293B] rounded-xl pl-4 pr-8 py-2 text-[12px] font-medium text-[#94A3B8] outline-none appearance-none cursor-pointer hover:border-[#38BDF8] transition-colors">
                   <option>Bench</option>
+                  <option>Mini Band</option>
                 </select>
                 <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#475569] pointer-events-none" />
               </div>
@@ -158,6 +191,7 @@ const ExerciseLibrary = () => {
               <div className="relative">
                 <select className="bg-[#0A0D14] border border-[#1E293B] rounded-xl pl-4 pr-8 py-2 text-[12px] font-medium text-[#94A3B8] outline-none appearance-none cursor-pointer hover:border-[#38BDF8] transition-colors">
                   <option>Published</option>
+                  <option>Drafted</option>
                 </select>
                 <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#475569] pointer-events-none" />
               </div>
@@ -165,7 +199,7 @@ const ExerciseLibrary = () => {
           </div>
 
           <div className="text-[12px] font-medium text-[#64748B] px-2">
-            Showing 1-4 of 16
+            Showing {filteredExercises.length > 0 ? indexOfFirstItem + 1 : 0}-{Math.min(indexOfLastItem, filteredExercises.length)} of {filteredExercises.length}
           </div>
         </div>
 
@@ -185,61 +219,72 @@ const ExerciseLibrary = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#1E293B]">
-                {exercises.map((exercise, index) => (
-                  <tr key={index} className="hover:bg-[#1E293B]/40 transition-colors group">
-                    <td className="px-8 py-6 text-[#64748B] text-[12px] font-medium">{exercise.id}</td>
-                    <td className="px-6 py-6 text-[14px] font-bold text-white">{exercise.name}</td>
-                    
-                    {/* Body Area Pills */}
-                    <td className="px-6 py-6">
-                      <div className="flex flex-wrap gap-2 max-w-[280px]">
-                        {exercise.bodyAreas.map((area, i) => (
-                          <span key={i} className="bg-[#34D399] text-[#0A0D14] px-3 py-1 rounded-full text-[10px] font-bold whitespace-nowrap">
-                            {area}
+                {currentItems.length > 0 ? (
+                  currentItems.map((exercise, index) => (
+                    <tr key={exercise.id} className="hover:bg-[#1E293B]/40 transition-colors group">
+                      <td className="px-8 py-6 text-[#64748B] text-[12px] font-medium">{exercise.id}</td>
+                      <td className="px-6 py-6 text-[14px] font-bold text-white">{exercise.name}</td>
+                      
+                      {/* Body Area Pills */}
+                      <td className="px-6 py-6">
+                        <div className="flex flex-wrap gap-2 max-w-[280px]">
+                          {exercise.bodyAreas.map((area, i) => (
+                            <span key={i} className="bg-[#34D399] text-[#0A0D14] px-3 py-1 rounded-full text-[10px] font-bold whitespace-nowrap">
+                              {area}
+                            </span>
+                          ))}
+                        </div>
+                      </td>
+
+                      {/* Phase Pills */}
+                      <td className="px-6 py-6">
+                        <div className="flex flex-wrap gap-2">
+                          {exercise.phases.map((phase, i) => (
+                            <span key={i} className={`px-4 py-1.5 rounded-full text-[10px] font-bold tracking-wider ${getPhaseStyle(phase)}`}>
+                              {phase}
+                            </span>
+                          ))}
+                        </div>
+                      </td>
+
+                      {/* Equipment */}
+                      <td className="px-6 py-6">
+                        {exercise.equipment}
+                      </td>
+
+                      {/* Status */}
+                      <td className="px-6 py-6">
+                        <div className="flex items-center gap-2">
+                          <div className={`w-1.5 h-1.5 rounded-full ${exercise.status === 'Published' ? 'bg-[#34D399] shadow-[0_0_8px_rgba(52,211,153,0.8)]' : 'bg-[#64748B]'}`}></div>
+                          <span className={`text-[12px] font-bold ${exercise.status === 'Published' ? 'text-[#34D399]' : 'text-[#64748B]'}`}>
+                            {exercise.status}
                           </span>
-                        ))}
-                      </div>
-                    </td>
+                        </div>
+                      </td>
 
-                    {/* Phase Pills */}
-                    <td className="px-6 py-6">
-                      <div className="flex flex-wrap gap-2">
-                        {exercise.phases.map((phase, i) => (
-                          <span key={i} className={`px-4 py-1.5 rounded-full text-[10px] font-bold tracking-wider ${getPhaseStyle(phase)}`}>
-                            {phase}
-                          </span>
-                        ))}
-                      </div>
-                    </td>
-
-                    {/* Equipment */}
-                    <td className="px-6 py-6">
-                      {exercise.equipment}
-                    </td>
-
-                    {/* Status */}
-                    <td className="px-6 py-6">
-                      <div className="flex items-center gap-2">
-                        <div className={`w-1.5 h-1.5 rounded-full ${exercise.status === 'Published' ? 'bg-[#34D399] shadow-[0_0_8px_rgba(52,211,153,0.8)]' : 'bg-[#64748B]'}`}></div>
-                        <span className={`text-[12px] font-bold ${exercise.status === 'Published' ? 'text-[#34D399]' : 'text-[#64748B]'}`}>
-                          {exercise.status}
-                        </span>
-                      </div>
-                    </td>
-
-                    {/* Actions */}
-                    <td className="px-8 py-6">
-                      <div className="flex items-center justify-end gap-3 text-[#64748B]">
-                        <button className="p-2 hover:bg-[#1E293B] hover:text-white rounded-lg transition-colors">
-                          <Edit3 size={18} strokeWidth={1.5} />
-                        </button>
-                        <button className="p-2 hover:bg-[#EF4444]/10 hover:text-[#EF4444] rounded-lg transition-colors">
-                          <Trash2 size={18} strokeWidth={1.5} />
-                        </button>
-                      </div>
+                      {/* Actions */}
+                      <td className="px-8 py-6">
+                        <div className="flex items-center justify-end gap-3 text-[#64748B]">
+                          <button className="p-2 hover:bg-[#1E293B] hover:text-white rounded-lg transition-colors">
+                            <Edit3 size={18} strokeWidth={1.5} />
+                          </button>
+                          <button 
+                            onClick={() => handleDelete(exercise.id)}
+                            className="p-2 hover:bg-[#EF4444]/10 hover:text-[#EF4444] rounded-lg transition-colors"
+                          >
+                            <Trash2 size={18} strokeWidth={1.5} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="7" className="text-center py-16 text-[#64748B] text-[14px]">
+                      No exercises found matching your search.
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>
@@ -247,22 +292,24 @@ const ExerciseLibrary = () => {
           {/* Footer Pagination */}
           <div className="px-8 py-6 flex items-center justify-between border-t border-[#1E293B]">
             <button 
-              className="flex items-center gap-2 text-[11px] font-bold text-[#64748B] hover:text-white transition-colors uppercase tracking-widest"
+              onClick={handlePrevPage}
+              className={`flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest transition-colors ${
+                currentPage === 1 ? 'text-[#475569] cursor-not-allowed' : 'text-[#64748B] hover:text-white'
+              }`}
               disabled={currentPage === 1}
             >
               <ArrowLeft size={14} /> PREVIOUS
             </button>
             
             <div className="flex items-center gap-2">
-              {[1, 2, 3, '...', 12].map((num, i) => (
+              {getPageNumbers().map(num => (
                 <button 
-                  key={i}
+                  key={num}
+                  onClick={() => handlePageClick(num)}
                   className={`w-8 h-8 flex items-center justify-center rounded-lg text-[13px] font-bold transition-colors ${
-                    num === 1 
+                    currentPage === num 
                       ? 'bg-[#38BDF8] text-[#0A0D14]' 
-                      : num === '...' 
-                        ? 'text-[#64748B] cursor-default' 
-                        : 'text-[#94A3B8] hover:bg-[#1E293B] hover:text-white'
+                      : 'text-[#94A3B8] hover:bg-[#1E293B] hover:text-white'
                   }`}
                 >
                   {num}
@@ -270,7 +317,13 @@ const ExerciseLibrary = () => {
               ))}
             </div>
             
-            <button className="flex items-center gap-2 text-[11px] font-bold text-[#64748B] hover:text-white transition-colors uppercase tracking-widest">
+            <button 
+              onClick={handleNextPage}
+              className={`flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest transition-colors ${
+                currentPage === totalPages || totalPages === 0 ? 'text-[#475569] cursor-not-allowed' : 'text-[#64748B] hover:text-white'
+              }`}
+              disabled={currentPage === totalPages || totalPages === 0}
+            >
               NEXT <ArrowRight size={14} />
             </button>
           </div>
