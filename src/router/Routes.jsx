@@ -15,6 +15,7 @@ import ExerciseLibrary from "../Pages/ExerciseLibrary/ExerciseLibrary";
 import AddExercise from "../Pages/ExerciseLibrary/AddExercise";
 import VideoManager from "../Pages/VideoManager/VideoManager";
 import UploadVideo from "../Pages/VideoManager/UploadVideo";
+import SubscriptionManagement from "../Pages/SubscriptionManagement/SubscriptionManagement";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,7 @@ export const router = createBrowserRouter([
           { path: "/add-exercise", element: <AddExercise /> },
           { path: "/video-manager", element: <VideoManager /> },
           { path: "/upload-video", element: <UploadVideo /> },
+          { path: "/subscription", element: <SubscriptionManagement /> },
         ],
       },
     ],
