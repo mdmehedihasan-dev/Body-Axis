@@ -5,6 +5,8 @@ import ActivePlans from '../../Components/Subscription/ActivePlans';
 import RecentActivity from '../../Components/Subscription/RecentActivity';
 import RevenueGrowth from '../../Components/Subscription/RevenueGrowth';
 import SubscriptionTable from '../../Components/Subscription/SubscriptionTable';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const mockSubscriptions = [
   {
@@ -56,36 +58,48 @@ const SubscriptionManagement = () => {
     return statusMatch && planMatch;
   });
 
-  const handleExportCSV = () => {
+  const handleExportPDF = () => {
     if (filteredSubscriptions.length === 0) {
       alert("No data to export!");
       return;
     }
 
-    const headers = ['USER', 'EMAIL', 'PLAN TYPE', 'RENEWAL DATE', 'PAYMENT', 'STATUS'];
-    const rows = filteredSubscriptions.map(sub => [
-      `"${sub.name}"`, 
-      `"${sub.email}"`, 
-      `"${sub.plan}"`, 
-      `"${sub.date}"`, 
-      `"${sub.payment}"`, 
-      `"${sub.status}"`
-    ]);
+    const doc = new jsPDF();
+    
+    // Add Title
+    doc.setFontSize(18);
+    doc.text('Subscription Report', 14, 22);
+    
+    // Add Date
+    doc.setFontSize(11);
+    doc.setTextColor(100);
+    doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 14, 30);
 
-    const csvContent = [
-      headers.join(','),
-      ...rows.map(row => row.join(','))
-    ].join('\n');
+    const tableColumn = ["User", "Email", "Plan Type", "Renewal Date", "Payment", "Status"];
+    const tableRows = [];
 
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    link.setAttribute('download', `subscriptions_export_${new Date().getTime()}.csv`);
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    filteredSubscriptions.forEach(sub => {
+      const subData = [
+        sub.name,
+        sub.email,
+        sub.plan,
+        sub.date,
+        sub.payment,
+        sub.status,
+      ];
+      tableRows.push(subData);
+    });
+
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+      startY: 40,
+      theme: 'grid',
+      styles: { fontSize: 9 },
+      headStyles: { fillColor: [59, 130, 246] } 
+    });
+
+    doc.save(`subscriptions_report_${new Date().getTime()}.pdf`);
   };
 
   return (
@@ -99,7 +113,7 @@ const SubscriptionManagement = () => {
             <p className="text-[#94A3B8] text-[13px] font-medium">Manage memberships, billing activity, and subscription performance.</p>
           </div>
           <button 
-            onClick={handleExportCSV}
+            onClick={handleExportPDF}
             className="flex items-center gap-2 bg-[#131B2F] border border-[#1E293B] hover:bg-[#1E293B] transition-colors text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm whitespace-nowrap"
           >
             <Download size={16} />
