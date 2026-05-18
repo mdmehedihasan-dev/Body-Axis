@@ -12,6 +12,7 @@ import EventDetails from "../Pages/UserManagement/EventDetails";
 import ProtocolManager from "../Pages/ProtocolManager/ProtocolManager";
 import CreateProtocol from "../Pages/ProtocolManager/CreateProtocol";
 import ExerciseLibrary from "../Pages/ExerciseLibrary/ExerciseLibrary";
+import AddExercise from "../Pages/ExerciseLibrary/AddExercise";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +46,7 @@ export const router = createBrowserRouter([
           { path: "/event-details/:id", element: <EventDetails /> },
           { path: "/create-protocol", element: <CreateProtocol /> },
           { path: "/exercise-library", element: <ExerciseLibrary /> },
+          { path: "/add-exercise", element: <AddExercise /> },
         ],
       },
     ],

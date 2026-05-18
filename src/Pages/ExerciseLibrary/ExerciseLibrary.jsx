@@ -1,25 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PlusCircle, Search, Filter, Dumbbell, Flame, Activity, User, Edit3, Trash2, ArrowLeft, ArrowRight, ChevronDown, Package } from 'lucide-react';
 import StatsCard from '../../Components/Dashboard/StatsCard';
+import { ExerciseContext } from '../../context/ExerciseContext';
 
-// Generate dynamic dataset
-const generateExercises = (count) => {
-  const names = [
-    'Supine Pelvic Clocks', 'Thoracic Extension', 'Long-Lever Hamstring Bridge',
-    'Dead Bug', 'Bird Dog', 'McGill Curl-Up', 'B-Stance Glute Bridge',
-    'Romanian Deadlift', 'Bulgarian Split Squat', 'Front Rack Carry'
-  ];
-  const phasesArr = [['Reset'], ['Reset', 'Control'], ['Control', 'Integrate'], ['Integrate']];
-  
-  return Array.from({ length: count }, (_, i) => ({
-    id: `EX-26${(i + 1).toString().padStart(4, '0')}`,
-    name: names[i % names.length],
-    bodyAreas: ['Lower Back', 'Shoulder', 'Upper Back', 'Middle Back', 'Neck'].slice(0, 1 + (i % 5)),
-    phases: phasesArr[i % phasesArr.length],
-    equipment: <Package size={18} className="text-[#34D399]" />,
-    status: i % 3 === 0 ? 'Drafted' : 'Published'
-  }));
-};
+// Removed mock generator, moved to Context
 
 const getPhaseStyle = (phase) => {
   switch (phase) {
@@ -31,10 +16,11 @@ const getPhaseStyle = (phase) => {
 };
 
 const ExerciseLibrary = () => {
-  const [exercises, setExercises] = useState(generateExercises(24));
+  const { exercises, deleteExercise } = useContext(ExerciseContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const itemsPerPage = 4;
+  const navigate = useNavigate();
 
   const stats = [
     {
@@ -94,7 +80,7 @@ const ExerciseLibrary = () => {
   };
 
   const handleDelete = (id) => {
-    setExercises(exercises.filter(ex => ex.id !== id));
+    deleteExercise(id);
   };
 
   // Generate page numbers for pagination
@@ -130,7 +116,10 @@ const ExerciseLibrary = () => {
                 className="bg-[#131B2F] border border-[#1E293B] rounded-xl pl-10 pr-4 py-2.5 text-[13px] text-white outline-none focus:border-[#3B82F6] transition-colors w-[240px]"
               />
             </div>
-            <button className="flex items-center gap-2 bg-[#3B82F6] hover:bg-blue-600 transition-colors text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-[0_0_15px_rgba(59,130,246,0.3)] whitespace-nowrap">
+            <button 
+              onClick={() => navigate('/add-exercise')}
+              className="flex items-center gap-2 bg-[#3B82F6] hover:bg-blue-600 transition-colors text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-[0_0_15px_rgba(59,130,246,0.3)] whitespace-nowrap"
+            >
               Add New Exercise
               <PlusCircle size={18} />
             </button>
