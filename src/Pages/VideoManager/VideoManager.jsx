@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { PlusCircle, Search, Filter, Trash2, ArrowLeft, ArrowRight, ChevronDown, Calendar } from 'lucide-react';
+import { PlusCircle, Search, Filter, Trash2, ArrowLeft, ArrowRight, ChevronDown, Calendar as CalendarIcon } from 'lucide-react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 // Generate dynamic dataset
 const generateVideos = (count) => {
@@ -29,7 +31,18 @@ const VideoManager = () => {
   const [videos, setVideos] = useState(generateVideos(30));
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+  const [filterDate, setFilterDate] = useState(new Date('2025-10-30T12:00:00'));
+  const [showCalendar, setShowCalendar] = useState(false);
   const itemsPerPage = 6;
+
+  // Format date helper
+  const formatDate = (date) => {
+    return date.toLocaleDateString('en-US', {
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric'
+    });
+  };
 
   // Search filter
   const filteredVideos = videos.filter(video => 
@@ -122,13 +135,27 @@ const VideoManager = () => {
             <div className="flex items-center gap-3">
               <label className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest">UPLOAD DATE</label>
               <div className="relative">
-                <input 
-                  type="text"
-                  value="10/30/2025"
-                  readOnly
-                  className="bg-[#0A0D14] border border-[#1E293B] rounded-xl pl-4 pr-10 py-2 text-[12px] font-medium text-[#94A3B8] outline-none w-[140px] cursor-pointer"
-                />
-                <Calendar size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#475569] pointer-events-none" />
+                <div className="relative" onClick={() => setShowCalendar(!showCalendar)}>
+                  <input 
+                    type="text"
+                    value={formatDate(filterDate)}
+                    readOnly
+                    className="bg-[#0A0D14] border border-[#1E293B] rounded-xl pl-4 pr-10 py-2 text-[12px] font-medium text-[#94A3B8] outline-none w-[140px] cursor-pointer"
+                  />
+                  <CalendarIcon size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#475569] pointer-events-none" />
+                </div>
+                {showCalendar && (
+                  <div className="absolute top-[120%] left-0 z-[100] shadow-2xl rounded-2xl overflow-hidden border border-[#1E293B] animate-in fade-in slide-in-from-top-2 duration-200">
+                    <Calendar
+                      onChange={(date) => {
+                        setFilterDate(date);
+                        setShowCalendar(false);
+                      }}
+                      value={filterDate}
+                      className="premium-calendar !bg-[#131B2F] !text-white !border-none"
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
