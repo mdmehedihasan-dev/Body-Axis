@@ -4,11 +4,9 @@ import { PlusCircle, Search, Filter, Trash2, ArrowLeft, ArrowRight, ChevronDown,
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { VideoContext } from '../../context/VideoContext';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-
 // Dynamic state now managed by VideoContext
 
+const VideoManager = () => {
   const { videos, deleteVideo } = useContext(VideoContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
@@ -16,9 +14,6 @@ import 'react-calendar/dist/Calendar.css';
   const [showCalendar, setShowCalendar] = useState(false);
   const itemsPerPage = 6;
   const navigate = useNavigate();
-  const [filterDate, setFilterDate] = useState(new Date('2025-10-30T12:00:00'));
-  const [showCalendar, setShowCalendar] = useState(false);
-  const itemsPerPage = 6;
 
   // Format date helper
   const formatDate = (date) => {
