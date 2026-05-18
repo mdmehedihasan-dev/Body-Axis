@@ -23,7 +23,6 @@ const Sidebar = ({ closeDrawer }) => {
     { icon: <Video size={22} />, label: "Video Manager", Link: "/video-manager" },
     { icon: <Users size={22} />, label: "Users Management", Link: "/user-management" },
     { icon: <CreditCard size={22} />, label: "Subscription", Link: "/subscription" },
-    { icon: <LineChart size={22} />, label: "Analytics", Link: "/analytics" },
     { icon: <Settings size={22} />, label: "Settings", Link: "/settings" },
   ];
 
