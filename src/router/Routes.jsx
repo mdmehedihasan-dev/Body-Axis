@@ -13,6 +13,7 @@ import ProtocolManager from "../Pages/ProtocolManager/ProtocolManager";
 import CreateProtocol from "../Pages/ProtocolManager/CreateProtocol";
 import ExerciseLibrary from "../Pages/ExerciseLibrary/ExerciseLibrary";
 import AddExercise from "../Pages/ExerciseLibrary/AddExercise";
+import VideoManager from "../Pages/VideoManager/VideoManager";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,7 @@ export const router = createBrowserRouter([
           { path: "/create-protocol", element: <CreateProtocol /> },
           { path: "/exercise-library", element: <ExerciseLibrary /> },
           { path: "/add-exercise", element: <AddExercise /> },
+          { path: "/video-manager", element: <VideoManager /> },
         ],
       },
     ],
