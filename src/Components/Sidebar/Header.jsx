@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { Bell, Search } from "lucide-react";
+import { Bell } from "lucide-react";
 import adminImage from "../../assets/image/adminkickclick.jpg";
 
 const Header = ({ showDrawer }) => {
@@ -16,25 +14,7 @@ const Header = ({ showDrawer }) => {
   ];
 
   return (
-    <div className="relative bg-[#0A0D14] h-[88px] flex items-center justify-between px-8 shadow-sm">
-      <div className="flex items-center gap-6 flex-1">
-        <RxHamburgerMenu
-          className="text-2xl text-gray-500 cursor-pointer lg:hidden"
-          onClick={showDrawer}
-        />
-        
-        {/* Search Bar */}
-        <div className="relative w-96 hidden md:block">
-          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-            <Search size={18} className="text-[#94A3B8]" />
-          </div>
-          <input
-            type="text"
-            placeholder="Search...."
-            className="w-full bg-[#131B2F] text-white text-[13px] rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:ring-1 focus:ring-blue-500/50 placeholder-[#94A3B8] transition-all"
-          />
-        </div>
-      </div>
+    <div className="relative bg-[#0A0D14] h-[88px] flex items-center justify-end px-8 shadow-sm">
 
       {/* Right Side */}
       <div className="flex items-center gap-8">
