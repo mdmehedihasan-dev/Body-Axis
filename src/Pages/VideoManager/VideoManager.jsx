@@ -1,36 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PlusCircle, Search, Filter, Trash2, ArrowLeft, ArrowRight, ChevronDown, Calendar as CalendarIcon } from 'lucide-react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { VideoContext } from '../../context/VideoContext';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
-// Generate dynamic dataset
-const generateVideos = (count) => {
-  const names = [
-    'Supine Pelvic Clocks', 'Thoracic Extension', 'Long-Lever Hamstring Bridge',
-    'Dead Bug', 'Bird Dog', 'McGill Curl-Up', 'B-Stance Glute Bridge',
-    'Romanian Deadlift', 'Bulgarian Split Squat', 'Front Rack Carry'
-  ];
-  
-  return Array.from({ length: count }, (_, i) => {
-    let status;
-    if (i % 4 === 0) status = 'Error';
-    else if (i % 3 === 0) status = 'Processing';
-    else status = 'Uploaded';
+// Dynamic state now managed by VideoContext
 
-    return {
-      id: `EX-26${(i + 1).toString().padStart(4, '0')}`,
-      name: names[i % names.length],
-      fileSize: '248.5 MB',
-      uploadDate: '10/30/2025',
-      status: status
-    };
-  });
-};
-
-const VideoManager = () => {
-  const [videos, setVideos] = useState(generateVideos(30));
+  const { videos, deleteVideo } = useContext(VideoContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+  const [filterDate, setFilterDate] = useState(new Date('2025-10-30T12:00:00'));
+  const [showCalendar, setShowCalendar] = useState(false);
+  const itemsPerPage = 6;
+  const navigate = useNavigate();
   const [filterDate, setFilterDate] = useState(new Date('2025-10-30T12:00:00'));
   const [showCalendar, setShowCalendar] = useState(false);
   const itemsPerPage = 6;
@@ -74,7 +59,7 @@ const VideoManager = () => {
   };
 
   const handleDelete = (id) => {
-    setVideos(videos.filter(v => v.id !== id));
+    deleteVideo(id);
   };
 
   // Generate page numbers for pagination
@@ -110,7 +95,10 @@ const VideoManager = () => {
                 className="bg-[#131B2F] border border-[#1E293B] rounded-xl pl-10 pr-4 py-2.5 text-[13px] text-white outline-none focus:border-[#3B82F6] transition-colors w-[240px]"
               />
             </div>
-            <button className="flex items-center gap-2 bg-[#3B82F6] hover:bg-blue-600 transition-colors text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-[0_0_15px_rgba(59,130,246,0.3)] whitespace-nowrap">
+            <button 
+              onClick={() => navigate('/upload-video')}
+              className="flex items-center gap-2 bg-[#3B82F6] hover:bg-blue-600 transition-colors text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-[0_0_15px_rgba(59,130,246,0.3)] whitespace-nowrap"
+            >
               Upload New Video
               <PlusCircle size={18} />
             </button>
