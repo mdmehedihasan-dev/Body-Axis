@@ -1,28 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PlusCircle, Flame, Dumbbell, Activity, Users, Edit3, Trash2, ArrowLeft, ArrowRight } from 'lucide-react';
 import StatsCard from '../../Components/Dashboard/StatsCard';
+import { ProtocolContext } from '../../context/ProtocolContext';
 
-// Generate dynamic dataset for pagination demo
-const generateMockProtocols = (count) => {
-  const names = [
-    "The Rotator Cuff Reset",
-    "The Lower Back Performance Flow",
-    "The Lower Back Deep Performance",
-    "The Hip Rotation Deep Performance",
-    "The Hip Flexor Strength Full Build",
-    "The Upper Back Ache Full Protocol",
-    "The Shoulder ER Reset",
-    "The Knee Stabilization Drill"
-  ];
-  const durations = ["15m", "30m", "45m", "60m"];
-  
-  return Array.from({ length: count }, (_, i) => ({
-    id: `00${(i + 1).toString().padStart(2, '0')}`,
-    name: names[i % names.length],
-    duration: durations[i % durations.length],
-    active: i % 3 !== 0 // Some active, some inactive
-  }));
-};
+// Removed generateMockProtocols as it is now in Context
 
 const ProtocolManager = () => {
   const stats = [
@@ -56,18 +38,17 @@ const ProtocolManager = () => {
     }
   ];
 
-  const [protocols, setProtocols] = useState(generateMockProtocols(24));
+  const { protocols, toggleStatus } = useContext(ProtocolContext);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
+  const navigate = useNavigate();
 
   const totalPages = Math.ceil(protocols.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentProtocols = protocols.slice(indexOfFirstItem, indexOfLastItem);
 
-  const toggleStatus = (id) => {
-    setProtocols(protocols.map(p => p.id === id ? { ...p, active: !p.active } : p));
-  };
+  // Removed local toggleStatus
 
   const handleNextPage = () => {
     if (currentPage < totalPages) setCurrentPage(p => p + 1);
@@ -98,7 +79,10 @@ const ProtocolManager = () => {
           <h1 className="text-[28px] font-bold tracking-tight">Protocol Manager</h1>
           <p className="text-[#94A3B8] text-[13px] mt-1 font-medium">Design and oversee corrective movement sequences.</p>
         </div>
-        <button className="flex items-center gap-2 bg-[#3B82F6] hover:bg-blue-600 transition-colors text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+        <button 
+          onClick={() => navigate('/create-protocol')}
+          className="flex items-center gap-2 bg-[#3B82F6] hover:bg-blue-600 transition-colors text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+        >
           Create New Protocol
           <PlusCircle size={18} />
         </button>

@@ -10,6 +10,7 @@ import UserManagement from "../Pages/UserManagement/UserManagement";
 import UserDetails from "../Pages/UserManagement/UserDetails";
 import EventDetails from "../Pages/UserManagement/EventDetails";
 import ProtocolManager from "../Pages/ProtocolManager/ProtocolManager";
+import CreateProtocol from "../Pages/ProtocolManager/CreateProtocol";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,7 @@ export const router = createBrowserRouter([
           { path: "/user-management", element: <UserManagement /> },
           { path: "/user-management/:id", element: <UserDetails /> },
           { path: "/event-details/:id", element: <EventDetails /> },
+          { path: "/create-protocol", element: <CreateProtocol /> },
         ],
       },
     ],
