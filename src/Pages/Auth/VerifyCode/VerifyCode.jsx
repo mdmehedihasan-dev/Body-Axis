@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { CheckCircle2, ArrowLeft } from "lucide-react";
-import mainLogo from "../../../assets/image/Body-Axis.png";
+import { ArrowLeft } from "lucide-react";
+import loginLogo from "../../../assets/image/login-logo.png";
+import mainBg from "../../../assets/image/main-bg.png";
 
 const VerifyCode = () => {
   const [code, setCode] = useState(["", "", "", "", ""]);
@@ -39,71 +40,92 @@ const VerifyCode = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F9FD] flex items-center justify-center p-6 overflow-hidden relative">
-      {/* Background Decorative Elements */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-black/5 rounded-full blur-[120px]" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-black/5 rounded-full blur-[120px]" />
+    <div 
+      className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden font-sans bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${mainBg})` }}
+    >
+      
+      {/* Subtle overlay to ensure good contrast */}
+      <div className="absolute inset-0 bg-[#030712]/30 pointer-events-none" />
 
-      <div className="w-full max-w-[540px] bg-white rounded-[48px] p-10 md:p-16 shadow-2xl shadow-black/[0.03] border border-white relative z-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
-        {/* Branding Header with Dark Contrast Container */}
-        <div className="flex flex-col items-center mb-12 text-center">
-          <div className="w-24 h-24 bg-[#0C0B10] rounded-[28px] flex items-center justify-center mb-6 shadow-2xl shadow-black/20 transform hover:scale-105 transition-all duration-500">
-            <img src={mainLogo} alt="Mooment" className="w-auto h-14 object-contain filter drop-shadow-lg" />
-          </div>
-          <h1 className="text-2xl font-black text-[#1A1A4B] tracking-tight mb-2 text-center">Verify Your Code</h1>
-          <p className="text-gray-400 font-medium text-sm text-center px-4">
-            We sent a 5-digit code to your email. Enter it below to continue.
-          </p>
+      {/* Main Container Container */}
+      <div className="w-full max-w-[850px] h-[550px] bg-[#0A0D14]/90 backdrop-blur-xl rounded-[24px] border border-[#1E293B]/50 shadow-[0_0_60px_rgba(30,58,138,0.15)] relative z-10 flex flex-col md:flex-row overflow-hidden">
+        
+        {/* Left Column - Logo Area */}
+        <div className="w-full md:w-1/2 flex items-center justify-center p-8 relative">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.05)_0%,transparent_60%)]" />
+          <img 
+            src={loginLogo} 
+            alt="Body Axis" 
+            className="w-48 object-contain filter drop-shadow-[0_0_15px_rgba(6,182,212,0.3)] z-10 hover:scale-105 transition-transform duration-500"
+          />
         </div>
 
-        <form onSubmit={handleVerify} className="space-y-10">
-          {/* OTP Inputs */}
-          <div className="flex justify-center gap-3">
-            {[0, 1, 2, 3, 4].map((index) => (
-              <input
-                key={index}
-                ref={(el) => (inputRefs.current[index] = el)}
-                type="text"
-                value={code[index]}
-                onChange={(e) => handleChange(index, e.target.value)}
-                onKeyDown={(e) => handleKeyDown(index, e)}
-                className="w-14 h-16 md:w-16 md:h-20 text-2xl font-black text-center text-[#1A1A4B] bg-[#F8F9FD] border-2 border-transparent focus:border-black/20 focus:bg-white rounded-2xl outline-none transition-all"
-                maxLength={1}
-                inputMode="numeric"
-              />
-            ))}
-          </div>
-
-          <div className="space-y-6">
-            <button 
-              type="submit"
-              disabled={loading || code.some(c => !c)}
-              className="w-full bg-[#0C0B10] text-white rounded-2xl py-4 font-black text-sm uppercase tracking-[0.15em] shadow-xl shadow-black/20 hover:bg-black transform hover:-translate-y-0.5 transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:transform-none"
-            >
-              {loading ? (
-                <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-              ) : (
-                <>
-                  Verify Code
-                  <CheckCircle2 size={18} />
-                </>
-              )}
-            </button>
-
-            <div className="text-center">
-              <p className="text-sm font-bold text-gray-400">
-                Didn't receive the email?{" "}
-                <button type="button" className="text-black hover:underline font-black">Resend Code</button>
+        {/* Right Column - Form Area */}
+        <div className="w-full md:w-1/2 flex items-center justify-center p-8 md:p-12">
+          
+          {/* Inner Form Card */}
+          <div className="w-full max-w-[320px] bg-[#131B2F]/60 backdrop-blur-md rounded-2xl p-8 border border-[#1E293B] shadow-[0_0_30px_rgba(37,99,235,0.08)] relative">
+            
+            {/* Form Header */}
+            <div className="text-center mb-6">
+              <h2 className="text-white font-bold text-[18px] mb-2 tracking-wide">Verify Your Code</h2>
+              <p className="text-[#94A3B8] text-[11px] leading-relaxed px-2">
+                We sent a 5-digit code to your email. Enter it below to continue.
               </p>
             </div>
-          </div>
-        </form>
 
-        <div className="mt-12 text-center">
-          <Link to="/sign-in" className="inline-flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-black transition-colors">
-            <ArrowLeft size={16} />
-            Back to Login
-          </Link>
+            <form onSubmit={handleVerify} className="space-y-6">
+              
+              {/* OTP Inputs */}
+              <div className="flex justify-center gap-2">
+                {[0, 1, 2, 3, 4].map((index) => (
+                  <input
+                    key={index}
+                    ref={(el) => (inputRefs.current[index] = el)}
+                    type="text"
+                    value={code[index]}
+                    onChange={(e) => handleChange(index, e.target.value)}
+                    onKeyDown={(e) => handleKeyDown(index, e)}
+                    className="w-10 h-12 text-lg font-bold text-center text-white bg-[#1E293B]/50 border border-[#334155]/50 focus:border-[#38BDF8]/50 focus:bg-[#1E293B] rounded-lg outline-none transition-all"
+                    maxLength={1}
+                    inputMode="numeric"
+                  />
+                ))}
+              </div>
+
+              {/* Actions */}
+              <div className="space-y-4">
+                <button 
+                  type="submit"
+                  disabled={loading || code.some(c => !c)}
+                  className="w-full bg-[#2563EB] hover:bg-[#3B82F6] text-white rounded-lg py-3 font-bold text-[13px] tracking-wide shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center disabled:opacity-50"
+                >
+                  {loading ? (
+                    <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    "Verify Code"
+                  )}
+                </button>
+
+                <div className="text-center">
+                  <p className="text-[11px] font-bold text-[#94A3B8]">
+                    Didn't receive the email?{" "}
+                    <button type="button" className="text-[#06B6D4] hover:text-white transition-colors">Resend Code</button>
+                  </p>
+                </div>
+              </div>
+              
+            </form>
+
+            <div className="mt-6 text-center">
+              <Link to="/sign-in" className="inline-flex items-center gap-2 text-[11px] font-bold text-[#06B6D4] hover:text-white transition-colors tracking-wide">
+                <ArrowLeft size={14} />
+                Back to Login
+              </Link>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>

@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { User, Camera, Bell, Shield, CheckCircle2 } from 'lucide-react';
 
 const Settings = () => {
+  const navigate = useNavigate();
   // Account Profile State
   const [profileImage, setProfileImage] = useState(null);
   const [fullName, setFullName] = useState('Alex Rivera');
@@ -151,7 +153,10 @@ const Settings = () => {
             <div>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-white text-[13px] font-medium">Recent Login Activity</h3>
-                <ToggleSwitch checked={recentLogin} onChange={() => setRecentLogin(!recentLogin)} />
+                <ToggleSwitch checked={recentLogin} onChange={() => {
+                  setRecentLogin(!recentLogin);
+                  navigate("/sign-in");
+                }} />
               </div>
               <div className="space-y-4">
                 <div className="flex items-center justify-between relative pl-4">
