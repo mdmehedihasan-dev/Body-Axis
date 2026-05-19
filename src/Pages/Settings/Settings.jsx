@@ -14,6 +14,7 @@ const Settings = () => {
 
   // Security State
   const [twoFactor, setTwoFactor] = useState(true);
+  const [recentLogin, setRecentLogin] = useState(true);
 
   const handleImageUpload = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -24,11 +25,11 @@ const Settings = () => {
 
   // Toggle Component
   const ToggleSwitch = ({ checked, onChange }) => (
-    <div 
+    <div
       className={`w-10 h-5 flex items-center rounded-full p-1 cursor-pointer transition-colors ${checked ? 'bg-[#0F766E]' : 'bg-[#1E293B]'}`}
       onClick={onChange}
     >
-      <div 
+      <div
         className={`w-3.5 h-3.5 rounded-full shadow-sm transform transition-transform duration-300 ${checked ? 'translate-x-4.5 bg-[#2DD4BF]' : 'translate-x-0 bg-[#94A3B8]'}`}
         style={{ transform: checked ? 'translateX(18px)' : 'translateX(0)' }}
       ></div>
@@ -38,7 +39,7 @@ const Settings = () => {
   return (
     <div className="min-h-screen p-8 bg-[#0A0D14] text-white font-sans">
       <div className="max-w-[1200px] mx-auto animate-in fade-in duration-500">
-        
+
         <h1 className="text-[28px] font-bold tracking-tight mb-8">Settings</h1>
 
         {/* Account Profile Card */}
@@ -60,18 +61,18 @@ const Settings = () => {
                   <User size={48} className="text-[#334155]" />
                 )}
               </div>
-              <button 
+              <button
                 onClick={() => fileInputRef.current.click()}
                 className="absolute -bottom-2 -right-2 w-10 h-10 rounded-full bg-[#2DD4BF] flex items-center justify-center text-[#042F2E] hover:scale-110 transition-transform shadow-lg border-[4px] border-[#131B2F]"
               >
                 <Camera size={18} strokeWidth={2.5} />
               </button>
-              <input 
-                type="file" 
-                ref={fileInputRef} 
-                onChange={handleImageUpload} 
-                accept="image/*" 
-                className="hidden" 
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleImageUpload}
+                accept="image/*"
+                className="hidden"
               />
             </div>
 
@@ -79,8 +80,8 @@ const Settings = () => {
             <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-[#94A3B8] text-[13px] font-medium mb-2">Full Name</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   className="w-full bg-[#0A0D14] border border-[#1E293B] rounded-xl px-4 py-3 text-[14px] text-white outline-none focus:border-[#38BDF8] transition-colors"
@@ -88,8 +89,8 @@ const Settings = () => {
               </div>
               <div>
                 <label className="block text-[#94A3B8] text-[13px] font-medium mb-2">Email Address</label>
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-[#0A0D14] border border-[#1E293B] rounded-xl px-4 py-3 text-[14px] text-white outline-none focus:border-[#38BDF8] transition-colors"
@@ -101,7 +102,7 @@ const Settings = () => {
 
         {/* Bottom Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          
+
           {/* Notifications Card */}
           <div className="bg-[#131B2F] rounded-2xl p-8 border border-[#1E293B] shadow-sm">
             <div className="flex items-center gap-3 mb-8">
@@ -148,10 +149,12 @@ const Settings = () => {
             </div>
 
             <div>
-              <h3 className="text-white text-[13px] font-medium mb-4">Recent Login Activity</h3>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-white text-[13px] font-medium">Recent Login Activity</h3>
+                <ToggleSwitch checked={recentLogin} onChange={() => setRecentLogin(!recentLogin)} />
+              </div>
               <div className="space-y-4">
                 <div className="flex items-center justify-between relative pl-4">
-                  <div className="absolute left-0 top-1.5 w-2 h-2 rounded-full bg-[#2DD4BF]"></div>
                   <p className="text-[#94A3B8] text-[12px]">Chrome on MacOS</p>
                   <p className="text-[#94A3B8] text-[11px]">Today, 10:45 AM</p>
                 </div>
