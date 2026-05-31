@@ -17,7 +17,7 @@ const StatsCard = ({ title, value, change, icon: Icon, bgIcon: BgIcon }) => {
           {React.isValidElement(Icon) ? Icon : Icon && <Icon size={20} strokeWidth={2} />}
         </div>
         {change && (
-          <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#E9FFF1] border border-[#10B981]/20 text-[#10B981]">
+          <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#10B981]/15 border border-[#10B981]/25 text-[#10B981]">
             <TrendingUp size={12} strokeWidth={3} />
             <span className="text-[11px] font-bold">{change}</span>
           </div>

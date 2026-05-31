@@ -1,10 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PlusCircle, Flame, Dumbbell, Activity, Users, Edit3, Trash2, ArrowLeft, ArrowRight } from 'lucide-react';
+import { PlusCircle, Flame, Dumbbell, Activity, Users, Edit3, Trash2, Search } from 'lucide-react';
 import StatsCard from '../../Components/Dashboard/StatsCard';
 import { ProtocolContext } from '../../context/ProtocolContext';
-
-// Removed generateMockProtocols as it is now in Context
 
 const ProtocolManager = () => {
   const stats = [
@@ -39,16 +37,20 @@ const ProtocolManager = () => {
   ];
 
   const { protocols, toggleStatus } = useContext(ProtocolContext);
+  const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
   const navigate = useNavigate();
 
-  const totalPages = Math.ceil(protocols.length / itemsPerPage);
+  // Filter protocols by search input
+  const filteredProtocols = protocols.filter(protocol =>
+    protocol.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredProtocols.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentProtocols = protocols.slice(indexOfFirstItem, indexOfLastItem);
-
-  // Removed local toggleStatus
+  const currentProtocols = filteredProtocols.slice(indexOfFirstItem, indexOfLastItem);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) setCurrentPage(p => p + 1);
@@ -62,11 +64,21 @@ const ProtocolManager = () => {
     setCurrentPage(pageNumber);
   };
 
-  // Generate page numbers for pagination
+  // Generate page numbers with standard truncation logic matching the screenshot
   const getPageNumbers = () => {
     const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push(i);
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      if (currentPage <= 2) {
+        pages.push(1, 2, 3, '...', totalPages);
+      } else if (currentPage >= totalPages - 1) {
+        pages.push(1, '...', totalPages - 2, totalPages - 1, totalPages);
+      } else {
+        pages.push(1, '...', currentPage, currentPage + 1, '...', totalPages);
+      }
     }
     return pages;
   };
@@ -96,91 +108,155 @@ const ProtocolManager = () => {
       </div>
 
       {/* Manage Protocols Table */}
-      <div className="bg-[#131B2F] rounded-2xl border border-[#1E293B] overflow-hidden">
-        <div className="p-6 border-b border-[#1E293B]">
+      <div className="bg-[#0A1120]/80 rounded-2xl border border-[#1E293B] overflow-hidden">
+        <div className="px-8 py-5 border-b border-[#1E293B] flex items-center justify-between flex-wrap gap-4">
           <h2 className="text-[15px] font-bold text-white">Manage Protocols</h2>
+          
+          {/* Search Box */}
+          <div className="relative">
+            <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-[#475569]">
+              <Search size={16} strokeWidth={2} />
+            </span>
+            <input 
+              type="text"
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setCurrentPage(1);
+              }}
+              placeholder="Search...."
+              className="w-[250px] pl-10 pr-4 py-2 bg-[#090E1A]/80 border border-[#1E293B] rounded-xl text-white text-[13px] placeholder-[#475569] focus:outline-none focus:border-[#38BDF8]/50 transition-colors"
+            />
+          </div>
         </div>
         
         <div className="overflow-x-auto min-h-[500px]">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-[#172136] text-[10px] font-bold text-[#64748B] uppercase tracking-[0.1em]">
-                <th className="px-8 py-4">#</th>
-                <th className="px-6 py-4">PROTOCOL NAME</th>
-                <th className="px-6 py-4">DURATION</th>
-                <th className="px-6 py-4">STATUS</th>
-                <th className="px-8 py-4 text-right">ACTIONS</th>
+              <tr className="text-[10px] font-bold text-[#475569] uppercase tracking-[0.15em] border-b border-[#1E293B]">
+                <th className="px-8 py-5 w-[100px]">#</th>
+                <th className="px-6 py-5">PROTOCOL NAME</th>
+                <th className="px-6 py-5 w-[150px]">DURATION</th>
+                <th className="px-6 py-5 w-[200px]">STATUS</th>
+                <th className="px-8 py-5 text-right w-[150px]">ACTIONS</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#1E293B]">
-              {currentProtocols.map((protocol) => (
-                <tr key={protocol.id} className="hover:bg-[#1E293B]/40 transition-colors">
-                  <td className="px-8 py-5 text-[#64748B] text-[13px] font-medium">{protocol.id}</td>
-                  <td className="px-6 py-5 text-[14px] font-bold text-gray-100">{protocol.name}</td>
-                  <td className="px-6 py-5 text-[#94A3B8] text-[13px]">{protocol.duration}</td>
-                  <td className="px-6 py-5">
-                    <div className="flex items-center gap-3">
-                      {/* Toggle Switch */}
-                      <button 
-                        onClick={() => toggleStatus(protocol.id)}
-                        className={`relative w-11 h-[22px] rounded-full transition-colors duration-300 ${protocol.active ? 'bg-[#10B981]' : 'bg-[#334155]'}`}
-                      >
-                        <span className={`absolute top-1 left-1 bg-white w-[14px] h-[14px] rounded-full transition-transform duration-300 ${protocol.active ? 'translate-x-6' : 'translate-x-0'}`}></span>
-                      </button>
-                      <span className={`text-[11px] font-bold tracking-wider uppercase ${protocol.active ? 'text-[#10B981]' : 'text-[#475569]'}`}>
-                        {protocol.active ? 'ACTIVE' : 'INACTIVE'}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-8 py-5">
-                    <div className="flex items-center justify-end gap-3 text-[#94A3B8]">
-                      <button className="hover:text-white transition-colors p-2 hover:bg-white/5 rounded-lg">
-                        <Edit3 size={18} strokeWidth={1.5} />
-                      </button>
-                      <button className="hover:text-white transition-colors p-2 hover:bg-white/5 rounded-lg">
-                        <Trash2 size={18} strokeWidth={1.5} />
-                      </button>
-                    </div>
+            <tbody className="divide-y divide-[#1E293B]/55">
+              {currentProtocols.length > 0 ? (
+                currentProtocols.map((protocol) => (
+                  <tr key={protocol.id} className="hover:bg-[#1E293B]/20 transition-colors">
+                    {/* Pad IDs to 3 digits */}
+                    <td className="px-8 py-5 text-[#3b4c66] text-[13px] font-medium font-mono">
+                      {protocol.id}
+                    </td>
+                    
+                    {/* Protocol Name */}
+                    <td className="px-6 py-5 text-[14px] font-bold text-gray-100">
+                      {protocol.name}
+                    </td>
+                    
+                    {/* Duration */}
+                    <td className="px-6 py-5 text-[#94A3B8] text-[13px]">
+                      {protocol.duration}
+                    </td>
+                    
+                    {/* Status Pill Toggle */}
+                    <td className="px-6 py-5">
+                      <div className="flex items-center gap-3">
+                        <button 
+                          onClick={() => toggleStatus(protocol.id)}
+                          className={`relative w-[38px] h-[20px] rounded-full transition-colors duration-300 focus:outline-none ${
+                            protocol.active ? 'bg-[#10B981]' : 'bg-[#1E293B] border border-slate-700/50'
+                          }`}
+                        >
+                          <span className={`absolute top-[3px] left-[3px] bg-white w-[12px] h-[12px] rounded-full transition-transform duration-300 ${
+                            protocol.active ? 'translate-x-[18px]' : 'translate-x-0'
+                          }`}></span>
+                        </button>
+                        <span className={`text-[11px] font-bold tracking-wider uppercase ${
+                          protocol.active ? 'text-[#10B981]' : 'text-[#475569]'
+                        }`}>
+                          {protocol.active ? 'ACTIVE' : 'INACTIVE'}
+                        </span>
+                      </div>
+                    </td>
+                    
+                    {/* Action Outline Icons */}
+                    <td className="px-8 py-5">
+                      <div className="flex items-center justify-end gap-3 text-[#475569]">
+                        <button className="hover:text-white transition-colors p-1.5 rounded-lg focus:outline-none">
+                          <Edit3 size={18} strokeWidth={1.5} />
+                        </button>
+                        <button className="hover:text-white transition-colors p-1.5 rounded-lg focus:outline-none">
+                          <Trash2 size={18} strokeWidth={1.5} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" className="px-8 py-16 text-center text-[#475569] text-[13.5px]">
+                    No protocols found matching your search.
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
 
         {/* Footer Pagination */}
-        <div className="px-8 py-6 flex items-center justify-between text-[13px] text-[#64748B] font-medium border-t border-[#1E293B]">
-          <p>Showing {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, protocols.length)} of {protocols.length} protocols</p>
-          <div className="flex items-center gap-3">
-            <button 
-              onClick={handlePrevPage}
-              disabled={currentPage === 1}
-              className={`p-1 transition-colors ${currentPage === 1 ? 'text-gray-600 cursor-not-allowed' : 'hover:text-white'}`}
-            >
-              <ArrowLeft size={16} />
-            </button>
-            
-            {getPageNumbers().map(num => (
+        <div className="px-8 py-6 grid grid-cols-3 items-center text-[13px] text-[#475569] font-medium border-t border-[#1E293B]">
+          {/* Left: Showing text */}
+          <div className="text-left">
+            <p className="text-[13px] text-[#3b4c66] font-medium">
+              Showing {filteredProtocols.length > 0 ? indexOfFirstItem + 1 : 0}-
+              {Math.min(indexOfLastItem, filteredProtocols.length)} of {filteredProtocols.length} protocols
+            </p>
+          </div>
+          
+          {/* Center: Centered Page Numbers */}
+          <div className="flex items-center justify-center gap-3">
+            {currentPage > 1 && (
               <button 
-                key={num}
-                onClick={() => handlePageClick(num)}
-                className={`w-8 h-8 flex items-center justify-center rounded-lg font-bold transition-colors ${
-                  currentPage === num 
-                    ? 'bg-[#1E293B] text-white' 
-                    : 'text-[#94A3B8] hover:bg-[#1E293B]/50 hover:text-white'
-                }`}
+                onClick={handlePrevPage}
+                className="text-[#64748B] hover:text-white font-bold transition-colors uppercase text-[11px] tracking-wider mr-2 focus:outline-none"
               >
-                {num}
+                &lt; PREV
               </button>
+            )}
+
+            {getPageNumbers().map((num, idx) => (
+              num === '...' ? (
+                <span key={`dots-${idx}`} className="text-[#3b4c66] font-bold px-1 select-none">...</span>
+              ) : (
+                <button 
+                  key={`page-${num}`}
+                  onClick={() => handlePageClick(num)}
+                  className={`w-[32px] h-[32px] flex items-center justify-center rounded-lg font-bold transition-colors focus:outline-none ${
+                    currentPage === num 
+                      ? 'bg-[#00D2FF] text-slate-900 shadow-[0_0_12px_rgba(0,210,255,0.5)]' 
+                      : 'text-[#64748B] hover:text-white'
+                  }`}
+                >
+                  {num}
+                </button>
+              )
             ))}
-            
-            <button 
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages}
-              className={`p-1 transition-colors ${currentPage === totalPages ? 'text-gray-600 cursor-not-allowed' : 'hover:text-white'}`}
-            >
-              <ArrowRight size={16} />
-            </button>
+          </div>
+          
+          {/* Right: NEXT Button */}
+          <div className="text-right">
+            {currentPage < totalPages ? (
+              <button 
+                onClick={handleNextPage}
+                className="text-[#64748B] hover:text-white font-bold transition-colors uppercase text-[11px] tracking-wider inline-flex items-center gap-1 focus:outline-none"
+              >
+                NEXT &gt;
+              </button>
+            ) : (
+              <div className="h-4"></div>
+            )}
           </div>
         </div>
       </div>
