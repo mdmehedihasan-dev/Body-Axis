@@ -35,7 +35,7 @@ const RevenueGrowth = () => {
       {/* Chart Area */}
       <div className="flex-1 flex items-end justify-between px-2 gap-2 sm:gap-4 mt-8 h-[220px]">
         {chartData.map((data, idx) => (
-          <div key={idx} className="flex flex-col items-center w-full h-full justify-end group">
+          <div key={idx} className="flex flex-col items-center w-full h-[160px] justify-end group">
             {/* Bar */}
             <div 
               className={`w-full rounded-sm transition-all duration-300 ${
