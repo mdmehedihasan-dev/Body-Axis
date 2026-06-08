@@ -5,18 +5,18 @@ const SubscriptionTable = ({ subscriptions, filterStatus, setFilterStatus, filte
   const tabs = ['All Subs', 'Active', 'Expiring', 'Cancelled'];
 
   return (
-    <div>
+    <div className="flex flex-col flex-1">
       {/* Table Controls */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
         {/* Pills */}
-        <div className="flex items-center gap-1 bg-[#131B2F] p-1 rounded-xl border border-[#1E293B]">
+        <div className="flex items-center gap-1 bg-[#131B2F] p-1 rounded-full border border-[#1E293B] h-[44px]">
           {tabs.map(tab => (
             <button
               key={tab}
               onClick={() => setFilterStatus(tab)}
-              className={`px-4 py-2 rounded-lg text-[13px] font-bold transition-all ${
+              className={`px-5 h-full rounded-full text-[13px] font-bold transition-all ${
                 filterStatus === tab 
-                  ? 'bg-[#3B82F6] text-white shadow-sm' 
+                  ? 'bg-[#E2E8F0] text-[#0F172A] shadow-sm' 
                   : 'text-[#94A3B8] hover:text-white'
               }`}
             >
@@ -27,11 +27,11 @@ const SubscriptionTable = ({ subscriptions, filterStatus, setFilterStatus, filte
 
         {/* Dropdowns */}
         <div className="flex items-center gap-3">
-          <div className="relative">
+          <div className="relative h-[44px]">
             <select 
               value={filterPlanType}
               onChange={(e) => setFilterPlanType(e.target.value)}
-              className="bg-[#131B2F] border border-[#1E293B] rounded-xl pl-4 pr-10 py-2.5 text-[13px] font-medium text-[#94A3B8] outline-none appearance-none cursor-pointer hover:border-[#38BDF8] transition-colors"
+              className="bg-[#131B2F] border border-[#1E293B] rounded-full pl-5 pr-10 h-full text-[13px] font-medium text-[#94A3B8] outline-none appearance-none cursor-pointer hover:border-[#38BDF8] transition-colors"
             >
               <option>Plan Type</option>
               <option>Monthly Elite</option>
@@ -40,8 +40,8 @@ const SubscriptionTable = ({ subscriptions, filterStatus, setFilterStatus, filte
             </select>
             <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#475569] pointer-events-none" />
           </div>
-          <div className="relative">
-            <select className="bg-[#131B2F] border border-[#1E293B] rounded-xl pl-4 pr-10 py-2.5 text-[13px] font-medium text-[#94A3B8] outline-none appearance-none cursor-pointer hover:border-[#38BDF8] transition-colors">
+          <div className="relative h-[44px]">
+            <select className="bg-[#131B2F] border border-[#1E293B] rounded-full pl-5 pr-10 h-full text-[13px] font-medium text-[#94A3B8] outline-none appearance-none cursor-pointer hover:border-[#38BDF8] transition-colors">
               <option>Revenue Range</option>
               <option>$0 - $50</option>
               <option>$50 - $200</option>
@@ -53,8 +53,8 @@ const SubscriptionTable = ({ subscriptions, filterStatus, setFilterStatus, filte
       </div>
 
       {/* Main Table */}
-      <div className="bg-[#131B2F] rounded-2xl border border-[#1E293B] overflow-hidden flex flex-col h-full">
-        <div className="overflow-x-auto">
+      <div className="bg-[#131B2F] rounded-2xl border border-[#1E293B] overflow-hidden flex flex-col flex-1 min-h-0">
+        <div className="overflow-x-auto flex-1">
           <table className="w-full text-left border-collapse min-w-[700px]">
             <thead>
               <tr className="border-b border-[#1E293B]">
@@ -88,10 +88,13 @@ const SubscriptionTable = ({ subscriptions, filterStatus, setFilterStatus, filte
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2 text-[#94A3B8] text-[13px] font-medium">
                       {sub.payment.includes('PayPal') ? (
-                        <span className="font-bold italic">PayPal</span>
+                        <>
+                          <div className="w-5 h-5 rounded flex items-center justify-center bg-white/10 text-white text-[10px] font-bold">P</div>
+                          <span className="font-bold">PayPal</span>
+                        </>
                       ) : (
                         <>
-                          <CreditCard size={16} />
+                          <CreditCard size={18} />
                           {sub.payment}
                         </>
                       )}

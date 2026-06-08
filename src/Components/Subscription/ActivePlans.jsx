@@ -7,7 +7,7 @@ const ActivePlans = () => {
       <h2 className="text-white text-lg font-medium mb-1">Active Plans</h2>
       
       {/* Monthly Membership */}
-      <div className="bg-[#0B3B8A] rounded-2xl p-6 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(11,59,138,0.5)] transition-all">
+      <div className="bg-[rgba(11,40,89,1)] rounded-2xl p-6 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(11,40,89,0.5)] transition-all border border-[#1E2E5C]">
         <div className="flex justify-between items-start mb-4">
           <div className="bg-white/10 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
             Popular
@@ -22,11 +22,11 @@ const ActivePlans = () => {
         </div>
         
         <div className="grid grid-cols-2 gap-3">
-          <div className="bg-[#07265E] rounded-xl p-3">
+          <div className="bg-[#0E1736] rounded-xl p-3">
             <p className="text-white/70 text-[10px] font-bold mb-1">Subscribers</p>
             <p className="text-white font-bold text-sm">8,420</p>
           </div>
-          <div className="bg-[#07265E] rounded-xl p-3">
+          <div className="bg-[#0E1736] rounded-xl p-3">
             <p className="text-white/70 text-[10px] font-bold mb-1">Conversion</p>
             <p className="text-white font-bold text-sm">12%</p>
           </div>
@@ -34,9 +34,9 @@ const ActivePlans = () => {
       </div>
 
       {/* Yearly Membership */}
-      <div className="bg-[#064E3B] rounded-2xl p-6 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(6,78,59,0.5)] transition-all">
+      <div className="bg-[rgba(11,40,89,1)] rounded-2xl p-6 relative overflow-hidden group hover:shadow-[0_0_20px_rgba(11,40,89,0.5)] transition-all border border-[#1E2E5C]">
         <div className="flex justify-between items-start mb-4">
-          <div className="bg-white/10 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+          <div className="bg-white/5 text-white/80 border border-white/10 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
             Best Value
           </div>
           <BadgeCheck className="text-white/40" size={24} />
@@ -49,11 +49,11 @@ const ActivePlans = () => {
         </div>
         
         <div className="grid grid-cols-2 gap-3">
-          <div className="bg-[#022C22] rounded-xl p-3">
+          <div className="bg-[#0E1736] rounded-xl p-3">
             <p className="text-white/70 text-[10px] font-bold mb-1">Subscribers</p>
             <p className="text-white font-bold text-sm">4,038</p>
           </div>
-          <div className="bg-[#022C22] rounded-xl p-3">
+          <div className="bg-[#0E1736] rounded-xl p-3">
             <p className="text-white/70 text-[10px] font-bold mb-1">Conversion</p>
             <p className="text-white font-bold text-sm">28%</p>
           </div>

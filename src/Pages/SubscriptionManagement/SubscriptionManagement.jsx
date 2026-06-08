@@ -65,11 +65,11 @@ const SubscriptionManagement = () => {
     }
 
     const doc = new jsPDF();
-    
+
     // Add Title
     doc.setFontSize(18);
     doc.text('Subscription Report', 14, 22);
-    
+
     // Add Date
     doc.setFontSize(11);
     doc.setTextColor(100);
@@ -96,7 +96,7 @@ const SubscriptionManagement = () => {
       startY: 40,
       theme: 'grid',
       styles: { fontSize: 9 },
-      headStyles: { fillColor: [59, 130, 246] } 
+      headStyles: { fillColor: [59, 130, 246] }
     });
 
     doc.save(`subscriptions_report_${new Date().getTime()}.pdf`);
@@ -105,16 +105,16 @@ const SubscriptionManagement = () => {
   return (
     <div className="min-h-screen p-8 bg-[#0A0D14] text-white font-sans">
       <div className="max-w-[1600px] mx-auto animate-in fade-in duration-500">
-        
+
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
           <div>
             <h1 className="text-[28px] font-bold tracking-tight mb-1">Subscription Management</h1>
             <p className="text-[#94A3B8] text-[13px] font-medium">Manage memberships, billing activity, and subscription performance.</p>
           </div>
-          <button 
+          <button
             onClick={handleExportPDF}
-            className="flex items-center gap-2 bg-[#131B2F] border border-[#1E293B] hover:bg-[#1E293B] transition-colors text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm whitespace-nowrap"
+            className="flex items-center gap-2 bg-[#131B2F] border border-[#1E293B] hover:bg-[#1E293B] transition-colors text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-sm whitespace-nowrap"
           >
             <Download size={16} />
             Export Report
@@ -126,7 +126,7 @@ const SubscriptionManagement = () => {
 
         {/* Main Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          
+
           {/* Left Column */}
           <div className="lg:col-span-4 flex flex-col gap-6">
             <ActivePlans />
@@ -136,7 +136,7 @@ const SubscriptionManagement = () => {
           {/* Right Column */}
           <div className="lg:col-span-8 flex flex-col h-full">
             <RevenueGrowth />
-            <SubscriptionTable 
+            <SubscriptionTable
               subscriptions={filteredSubscriptions}
               filterStatus={filterStatus}
               setFilterStatus={setFilterStatus}
