@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Bell } from "lucide-react";
 import adminImage from "../../assets/image/adminkickclick.jpg";
 
 const Header = ({ showDrawer }) => {
+  const navigate = useNavigate();
   const [showNotifications, setShowNotifications] = useState(false);
   const [notificationsCount] = useState(5);
 
@@ -30,7 +32,7 @@ const Header = ({ showDrawer }) => {
         </button>
 
         {/* Divider */}
-        <div className="h-8 w-[1px] bg-[#1E293B]"></div>
+        <div className="h-8 w-[1px] bg-[#E2E8F0]"></div>
 
         {/* User Profile */}
         <div className="flex items-center gap-4 cursor-pointer group">
@@ -66,7 +68,13 @@ const Header = ({ showDrawer }) => {
               </div>
             ))}
           </div>
-          <button className="mt-8 w-full bg-blue-600 text-white py-3.5 rounded-xl text-sm font-bold hover:bg-blue-700 transition-all shadow-lg shadow-black/10">
+          <button 
+            onClick={() => {
+              setShowNotifications(false);
+              navigate('/notifications');
+            }}
+            className="mt-8 w-full bg-blue-600 text-white py-3.5 rounded-xl text-sm font-bold hover:bg-blue-700 transition-all shadow-lg shadow-black/10"
+          >
             View All Notifications
           </button>
         </div>

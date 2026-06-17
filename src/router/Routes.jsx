@@ -17,6 +17,7 @@ import VideoManager from "../Pages/VideoManager/VideoManager";
 import UploadVideo from "../Pages/VideoManager/UploadVideo";
 import SubscriptionManagement from "../Pages/SubscriptionManagement/SubscriptionManagement";
 import Settings from "../Pages/Settings/Settings";
+import Notifications from "../Pages/Notifications/Notifications";
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +56,7 @@ export const router = createBrowserRouter([
           { path: "/upload-video", element: <UploadVideo /> },
           { path: "/subscription", element: <SubscriptionManagement /> },
           { path: "/settings", element: <Settings /> },
+          { path: "/notifications", element: <Notifications /> },
         ],
       },
     ],
