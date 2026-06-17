@@ -64,8 +64,16 @@ export const ProtocolProvider = ({ children }) => {
     setProtocols(protocols.map(p => p.id === id ? { ...p, active: !p.active } : p));
   };
 
+  const deleteProtocol = (id) => {
+    setProtocols(protocols.filter(p => p.id !== id));
+  };
+
+  const editProtocol = (id, updatedData) => {
+    setProtocols(protocols.map(p => p.id === id ? { ...p, ...updatedData } : p));
+  };
+
   return (
-    <ProtocolContext.Provider value={{ protocols, addProtocol, toggleStatus }}>
+    <ProtocolContext.Provider value={{ protocols, addProtocol, toggleStatus, deleteProtocol, editProtocol }}>
       {children}
     </ProtocolContext.Provider>
   );

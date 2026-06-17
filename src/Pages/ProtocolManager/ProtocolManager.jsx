@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PlusCircle, Flame, Dumbbell, Activity, Users, Edit3, Trash2, Search } from 'lucide-react';
+import { PlusCircle, Flame, Dumbbell, Activity, Users, Edit3, Trash2, Search, X, AlertTriangle } from 'lucide-react';
 import StatsCard from '../../Components/Dashboard/StatsCard';
 import { ProtocolContext } from '../../context/ProtocolContext';
 
@@ -36,11 +36,48 @@ const ProtocolManager = () => {
     }
   ];
 
-  const { protocols, toggleStatus } = useContext(ProtocolContext);
+  const { protocols, toggleStatus, deleteProtocol, editProtocol } = useContext(ProtocolContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
   const navigate = useNavigate();
+
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingProtocol, setEditingProtocol] = useState(null);
+  const [editFormData, setEditFormData] = useState({ name: '', duration: '' });
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [protocolToDelete, setProtocolToDelete] = useState(null);
+
+  const handleEditClick = (protocol) => {
+    setEditingProtocol(protocol);
+    setEditFormData({ name: protocol.name, duration: protocol.duration });
+    setIsEditModalOpen(true);
+  };
+
+  const handleSaveEdit = () => {
+    if (editingProtocol) {
+      editProtocol(editingProtocol.id, { 
+        name: editFormData.name.trim(), 
+        duration: editFormData.duration.trim() 
+      });
+    }
+    setIsEditModalOpen(false);
+    setEditingProtocol(null);
+  };
+
+  const handleDeleteClick = (protocol) => {
+    setProtocolToDelete(protocol);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (protocolToDelete) {
+      deleteProtocol(protocolToDelete.id);
+    }
+    setIsDeleteModalOpen(false);
+    setProtocolToDelete(null);
+  };
 
   // Filter protocols by search input
   const filteredProtocols = protocols.filter(protocol =>
@@ -184,10 +221,16 @@ const ProtocolManager = () => {
                     {/* Action Outline Icons */}
                     <td className="px-8 py-5">
                       <div className="flex items-center justify-end gap-3 text-[#475569]">
-                        <button className="hover:text-white transition-colors p-1.5 rounded-lg focus:outline-none">
+                        <button 
+                          onClick={() => handleEditClick(protocol)}
+                          className="hover:text-white transition-colors p-1.5 rounded-lg focus:outline-none"
+                        >
                           <Edit3 size={18} strokeWidth={1.5} />
                         </button>
-                        <button className="hover:text-white transition-colors p-1.5 rounded-lg focus:outline-none">
+                        <button 
+                          onClick={() => handleDeleteClick(protocol)}
+                          className="hover:text-[#EF4444] transition-colors p-1.5 rounded-lg focus:outline-none"
+                        >
                           <Trash2 size={18} strokeWidth={1.5} />
                         </button>
                       </div>
@@ -260,6 +303,86 @@ const ProtocolManager = () => {
           </div>
         </div>
       </div>
+
+      {/* Edit Modal */}
+      {isEditModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-[#131B2F] border border-[#1E293B] rounded-2xl p-6 w-full max-w-md shadow-2xl relative animate-in zoom-in-95 duration-200">
+            <button 
+              onClick={() => setIsEditModalOpen(false)}
+              className="absolute top-4 right-4 text-[#64748B] hover:text-white transition-colors focus:outline-none"
+            >
+              <X size={20} />
+            </button>
+            <h2 className="text-[18px] font-bold text-white mb-6">Edit Protocol</h2>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest mb-2">PROTOCOL NAME</label>
+                <input 
+                  type="text"
+                  value={editFormData.name}
+                  onChange={(e) => setEditFormData({ ...editFormData, name: e.target.value })}
+                  className="w-full bg-[#0A0D14] border border-[#1E293B] rounded-xl px-4 py-3 text-[13px] text-white outline-none focus:border-[#38BDF8] transition-colors"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest mb-2">DURATION</label>
+                <input 
+                  type="text"
+                  value={editFormData.duration}
+                  onChange={(e) => setEditFormData({ ...editFormData, duration: e.target.value })}
+                  className="w-full bg-[#0A0D14] border border-[#1E293B] rounded-xl px-4 py-3 text-[13px] text-white outline-none focus:border-[#38BDF8] transition-colors"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 mt-8">
+              <button 
+                onClick={() => setIsEditModalOpen(false)}
+                className="flex-1 py-2.5 rounded-xl border border-[#1E293B] text-[#94A3B8] hover:text-white hover:bg-[#1E293B]/50 transition-colors text-[13px] font-bold"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleSaveEdit}
+                className="flex-1 py-2.5 rounded-xl bg-[#3B82F6] hover:bg-blue-600 transition-colors text-white text-[13px] font-bold shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Delete Confirmation Modal */}
+      {isDeleteModalOpen && protocolToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-[#131B2F] border border-[#1E293B] rounded-2xl p-6 w-full max-w-sm shadow-2xl relative animate-in zoom-in-95 duration-200 text-center">
+            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-[#EF4444]/10 mb-4">
+              <AlertTriangle className="h-6 w-6 text-[#EF4444]" />
+            </div>
+            <h2 className="text-[18px] font-bold text-white mb-2">Delete Protocol?</h2>
+            <p className="text-[13px] text-[#94A3B8] mb-6">
+              Are you sure you want to delete <span className="text-white font-bold">"{protocolToDelete.name}"</span>? This action cannot be undone.
+            </p>
+            
+            <div className="flex items-center gap-3">
+              <button 
+                onClick={() => setIsDeleteModalOpen(false)}
+                className="flex-1 py-2.5 rounded-xl border border-[#1E293B] text-[#94A3B8] hover:text-white hover:bg-[#1E293B]/50 transition-colors text-[13px] font-bold"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleConfirmDelete}
+                className="flex-1 py-2.5 rounded-xl bg-[#EF4444] hover:bg-red-600 transition-colors text-white text-[13px] font-bold shadow-[0_0_15px_rgba(239,68,68,0.3)]"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
