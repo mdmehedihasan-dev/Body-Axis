@@ -29,7 +29,7 @@ const EngagementDataDetail = ({ className = '' }) => {
           </thead>
           <tbody className="divide-y divide-[#1E293B]">
             {data.map((row, index) => (
-              <tr key={index} className="hover:bg-[#1E293B]/30 transition-colors">
+              <tr key={index} className="bg-[#1E293B]/30 transition-colors">
                 <td className="px-6 py-4">
                   <span className="text-[13px] font-medium text-[#94A3B8]">{row.date}</span>
                 </td>

@@ -37,7 +37,7 @@ const EngagementVelocity = () => {
   };
 
   return (
-    <div className="bg-[#131B2F] rounded-3xl shadow-lg border border-[#1E293B] overflow-hidden flex flex-col">
+    <div className="bg-[#0B1220] rounded-3xl shadow-lg border border-[#1E293B] overflow-hidden flex flex-col">
       {/* Header Area */}
       <div className="p-8 pb-4 flex flex-col lg:flex-row lg:items-start justify-between gap-6">
         <div>
@@ -110,8 +110,8 @@ const EngagementVelocity = () => {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`px-4 py-1.5 rounded-lg text-[12px] font-bold transition-all ${activeTab === tab
-                    ? 'bg-blue-600 text-white shadow-sm'
-                    : 'text-[#94A3B8] hover:text-gray-300'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-[#94A3B8] hover:text-gray-300'
                   }`}
               >
                 {tab}
@@ -127,8 +127,8 @@ const EngagementVelocity = () => {
           <div key={index} className="flex flex-col items-center flex-1 h-full justify-end group">
             <div
               className={`w-full max-w-[48px] rounded-t-sm transition-all duration-500 relative ${item.active
-                  ? 'bg-gradient-to-b from-[#A855F7] to-[#34D399] shadow-[0_0_20px_rgba(52,211,153,0.3)]'
-                  : 'bg-gradient-to-b from-[#4C1D95]/60 to-[#065F46]/60 group-hover:from-[#6D28D9]/80 group-hover:to-[#059669]/80 opacity-70'
+                ? 'bg-gradient-to-b from-[#A855F7] to-[#34D399] shadow-[0_0_20px_rgba(52,211,153,0.3)]'
+                : 'bg-gradient-to-b from-[#4C1D95]/60 to-[#065F46]/60 group-hover:from-[#6D28D9]/80 group-hover:to-[#059669]/80 opacity-70'
                 }`}
               style={{ height: `${item.height}%` }}
             >
