@@ -14,7 +14,7 @@ const Header = ({ showDrawer }) => {
   ];
 
   return (
-    <div className="relative bg-[#0A0D14] h-[88px] flex items-center justify-end px-8 shadow-sm">
+    <div className="relative bg-[#0b1120] h-[88px] flex items-center justify-end px-8 shadow-sm">
 
       {/* Right Side */}
       <div className="flex items-center gap-8">

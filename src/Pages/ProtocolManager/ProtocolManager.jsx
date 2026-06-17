@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PlusCircle, Flame, Dumbbell, Activity, Users, Edit3, Trash2, Search, X, AlertTriangle } from 'lucide-react';
+import { PlusCircle, Flame, Dumbbell, Activity, Users, Search, X, AlertTriangle } from 'lucide-react';
+import { FaRegEdit } from "react-icons/fa";
+import { AiOutlineDelete } from "react-icons/ai";
 import StatsCard from '../../Components/Dashboard/StatsCard';
 import { ProtocolContext } from '../../context/ProtocolContext';
 
@@ -57,9 +59,9 @@ const ProtocolManager = () => {
 
   const handleSaveEdit = () => {
     if (editingProtocol) {
-      editProtocol(editingProtocol.id, { 
-        name: editFormData.name.trim(), 
-        duration: editFormData.duration.trim() 
+      editProtocol(editingProtocol.id, {
+        name: editFormData.name.trim(),
+        duration: editFormData.duration.trim()
       });
     }
     setIsEditModalOpen(false);
@@ -128,7 +130,7 @@ const ProtocolManager = () => {
           <h1 className="text-[28px] font-bold tracking-tight">Protocol Manager</h1>
           <p className="text-[#94A3B8] text-[13px] mt-1 font-medium">Design and oversee corrective movement sequences.</p>
         </div>
-        <button 
+        <button
           onClick={() => navigate('/create-protocol')}
           className="flex items-center gap-2 bg-[#3B82F6] hover:bg-blue-600 transition-colors text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-[0_0_15px_rgba(59,130,246,0.3)]"
         >
@@ -148,13 +150,13 @@ const ProtocolManager = () => {
       <div className="bg-[#0A1120]/80 rounded-2xl border border-[#1E293B] overflow-hidden">
         <div className="px-8 py-5 border-b border-[#1E293B] flex items-center justify-between flex-wrap gap-4">
           <h2 className="text-[15px] font-bold text-white">Manage Protocols</h2>
-          
+
           {/* Search Box */}
           <div className="relative">
             <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-[#475569]">
               <Search size={16} strokeWidth={2} />
             </span>
-            <input 
+            <input
               type="text"
               value={searchQuery}
               onChange={(e) => {
@@ -166,11 +168,11 @@ const ProtocolManager = () => {
             />
           </div>
         </div>
-        
+
         <div className="overflow-x-auto min-h-[500px]">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="text-[10px] font-bold text-[#475569] uppercase tracking-[0.15em] border-b border-[#1E293B]">
+              <tr className="text-[15px] font-bold text-[#64748B] uppercase tracking-[0.15em] border-b border-[#1E293B]">
                 <th className="px-8 py-5 w-[100px]">#</th>
                 <th className="px-6 py-5">PROTOCOL NAME</th>
                 <th className="px-6 py-5 w-[150px]">DURATION</th>
@@ -186,52 +188,49 @@ const ProtocolManager = () => {
                     <td className="px-8 py-5 text-[#3b4c66] text-[13px] font-medium font-mono">
                       {protocol.id}
                     </td>
-                    
+
                     {/* Protocol Name */}
                     <td className="px-6 py-5 text-[14px] font-bold text-gray-100">
                       {protocol.name}
                     </td>
-                    
+
                     {/* Duration */}
                     <td className="px-6 py-5 text-[#94A3B8] text-[13px]">
                       {protocol.duration}
                     </td>
-                    
+
                     {/* Status Pill Toggle */}
                     <td className="px-6 py-5">
                       <div className="flex items-center gap-3">
-                        <button 
+                        <button
                           onClick={() => toggleStatus(protocol.id)}
-                          className={`relative w-[38px] h-[20px] rounded-full transition-colors duration-300 focus:outline-none ${
-                            protocol.active ? 'bg-[#10B981]' : 'bg-[#1E293B] border border-slate-700/50'
-                          }`}
+                          className={`relative w-[38px] h-[20px] rounded-full transition-colors duration-300 focus:outline-none ${protocol.active ? 'bg-[#10B981]' : 'bg-[#1E293B] border border-slate-700/50'
+                            }`}
                         >
-                          <span className={`absolute top-[3px] left-[3px] bg-white w-[12px] h-[12px] rounded-full transition-transform duration-300 ${
-                            protocol.active ? 'translate-x-[18px]' : 'translate-x-0'
-                          }`}></span>
+                          <span className={`absolute top-[3px] left-[3px] bg-white w-[12px] h-[12px] rounded-full transition-transform duration-300 ${protocol.active ? 'translate-x-[18px]' : 'translate-x-0'
+                            }`}></span>
                         </button>
-                        <span className={`text-[11px] font-bold tracking-wider uppercase ${
-                          protocol.active ? 'text-[#10B981]' : 'text-[#475569]'
-                        }`}>
+                        <span className={`text-[11px] font-bold tracking-wider uppercase ${protocol.active ? 'text-[#10B981]' : 'text-[#475569]'
+                          }`}>
                           {protocol.active ? 'ACTIVE' : 'INACTIVE'}
                         </span>
                       </div>
                     </td>
-                    
+
                     {/* Action Outline Icons */}
                     <td className="px-8 py-5">
                       <div className="flex items-center justify-end gap-3 text-[#475569]">
-                        <button 
+                        <button
                           onClick={() => handleEditClick(protocol)}
-                          className="hover:text-white transition-colors p-1.5 rounded-lg focus:outline-none"
+                          className="text-[#94A3B8] hover:text-white transition-colors p-1.5 rounded-lg focus:outline-none"
                         >
-                          <Edit3 size={18} strokeWidth={1.5} />
+                          <FaRegEdit size={18} />
                         </button>
-                        <button 
+                        <button
                           onClick={() => handleDeleteClick(protocol)}
-                          className="hover:text-[#EF4444] transition-colors p-1.5 rounded-lg focus:outline-none"
+                          className="text-[#94A3B8] hover:text-[#EF4444] transition-colors p-1.5 rounded-lg focus:outline-none"
                         >
-                          <Trash2 size={18} strokeWidth={1.5} />
+                          <AiOutlineDelete size={18} />
                         </button>
                       </div>
                     </td>
@@ -257,11 +256,11 @@ const ProtocolManager = () => {
               {Math.min(indexOfLastItem, filteredProtocols.length)} of {filteredProtocols.length} protocols
             </p>
           </div>
-          
+
           {/* Center: Centered Page Numbers */}
           <div className="flex items-center justify-center gap-3">
             {currentPage > 1 && (
-              <button 
+              <button
                 onClick={handlePrevPage}
                 className="text-[#64748B] hover:text-white font-bold transition-colors uppercase text-[11px] tracking-wider mr-2 focus:outline-none"
               >
@@ -273,25 +272,24 @@ const ProtocolManager = () => {
               num === '...' ? (
                 <span key={`dots-${idx}`} className="text-[#3b4c66] font-bold px-1 select-none">...</span>
               ) : (
-                <button 
+                <button
                   key={`page-${num}`}
                   onClick={() => handlePageClick(num)}
-                  className={`w-[32px] h-[32px] flex items-center justify-center rounded-lg font-bold transition-colors focus:outline-none ${
-                    currentPage === num 
-                      ? 'bg-[#00D2FF] text-slate-900 shadow-[0_0_12px_rgba(0,210,255,0.5)]' 
+                  className={`w-[32px] h-[32px] flex items-center justify-center rounded-lg font-bold transition-colors focus:outline-none ${currentPage === num
+                      ? 'bg-[#00D2FF] text-slate-900 shadow-[0_0_12px_rgba(0,210,255,0.5)]'
                       : 'text-[#64748B] hover:text-white'
-                  }`}
+                    }`}
                 >
                   {num}
                 </button>
               )
             ))}
           </div>
-          
+
           {/* Right: NEXT Button */}
           <div className="text-right">
             {currentPage < totalPages ? (
-              <button 
+              <button
                 onClick={handleNextPage}
                 className="text-[#64748B] hover:text-white font-bold transition-colors uppercase text-[11px] tracking-wider inline-flex items-center gap-1 focus:outline-none"
               >
@@ -308,18 +306,18 @@ const ProtocolManager = () => {
       {isEditModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-[#131B2F] border border-[#1E293B] rounded-2xl p-6 w-full max-w-md shadow-2xl relative animate-in zoom-in-95 duration-200">
-            <button 
+            <button
               onClick={() => setIsEditModalOpen(false)}
               className="absolute top-4 right-4 text-[#64748B] hover:text-white transition-colors focus:outline-none"
             >
               <X size={20} />
             </button>
             <h2 className="text-[18px] font-bold text-white mb-6">Edit Protocol</h2>
-            
+
             <div className="space-y-4">
               <div>
                 <label className="block text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest mb-2">PROTOCOL NAME</label>
-                <input 
+                <input
                   type="text"
                   value={editFormData.name}
                   onChange={(e) => setEditFormData({ ...editFormData, name: e.target.value })}
@@ -328,7 +326,7 @@ const ProtocolManager = () => {
               </div>
               <div>
                 <label className="block text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest mb-2">DURATION</label>
-                <input 
+                <input
                   type="text"
                   value={editFormData.duration}
                   onChange={(e) => setEditFormData({ ...editFormData, duration: e.target.value })}
@@ -338,13 +336,13 @@ const ProtocolManager = () => {
             </div>
 
             <div className="flex items-center gap-3 mt-8">
-              <button 
+              <button
                 onClick={() => setIsEditModalOpen(false)}
                 className="flex-1 py-2.5 rounded-xl border border-[#1E293B] text-[#94A3B8] hover:text-white hover:bg-[#1E293B]/50 transition-colors text-[13px] font-bold"
               >
                 Cancel
               </button>
-              <button 
+              <button
                 onClick={handleSaveEdit}
                 className="flex-1 py-2.5 rounded-xl bg-[#3B82F6] hover:bg-blue-600 transition-colors text-white text-[13px] font-bold shadow-[0_0_15px_rgba(59,130,246,0.3)]"
               >
@@ -365,15 +363,15 @@ const ProtocolManager = () => {
             <p className="text-[13px] text-[#94A3B8] mb-6">
               Are you sure you want to delete <span className="text-white font-bold">"{protocolToDelete.name}"</span>? This action cannot be undone.
             </p>
-            
+
             <div className="flex items-center gap-3">
-              <button 
+              <button
                 onClick={() => setIsDeleteModalOpen(false)}
                 className="flex-1 py-2.5 rounded-xl border border-[#1E293B] text-[#94A3B8] hover:text-white hover:bg-[#1E293B]/50 transition-colors text-[13px] font-bold"
               >
                 Cancel
               </button>
-              <button 
+              <button
                 onClick={handleConfirmDelete}
                 className="flex-1 py-2.5 rounded-xl bg-[#EF4444] hover:bg-red-600 transition-colors text-white text-[13px] font-bold shadow-[0_0_15px_rgba(239,68,68,0.3)]"
               >

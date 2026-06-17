@@ -7,7 +7,7 @@ const StatsCard = ({ title, value, change, icon: Icon, bgIcon: BgIcon }) => {
       {/* Background Watermark Icon */}
       {BgIcon && (
         <div className="absolute -bottom-6 -right-6 text-[#1E293B] opacity-40 pointer-events-none">
-          <BgIcon size={100} strokeWidth={1} color="#00D4FF0A" />
+          <BgIcon size={100} strokeWidth={1} color="#1e2e41" />
         </div>
       )}
 
@@ -17,7 +17,7 @@ const StatsCard = ({ title, value, change, icon: Icon, bgIcon: BgIcon }) => {
           {React.isValidElement(Icon) ? Icon : Icon && <Icon size={20} strokeWidth={2} />}
         </div>
         {change && (
-          <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#10B981]/15 border border-[#10B981]/25 text-[#10B981]">
+          <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#E9FFF1] border border-[#10B981]/25 text-[#10B981]">
             <TrendingUp size={12} strokeWidth={3} />
             <span className="text-[11px] font-bold">{change}</span>
           </div>
