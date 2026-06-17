@@ -104,14 +104,14 @@ const EngagementVelocity = () => {
           </div>
 
           {/* Tabs */}
-          <div className="flex items-center gap-1 bg-[#0A0D14]/50 p-1 rounded-xl border border-[#1E293B]">
+          <div className="flex items-center gap-2 ml-4">
             {['Daily', 'Weekly', 'Monthly'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-4 py-1.5 rounded-lg text-[12px] font-bold transition-all ${activeTab === tab
-                  ? 'bg-blue-600 text-white shadow-sm'
-                  : 'text-[#94A3B8] hover:text-gray-300'
+                className={`px-5 py-2 rounded-xl text-[12px] font-bold transition-all ${activeTab === tab
+                  ? 'bg-[#3B82F6] text-white shadow-[0_0_15px_rgba(59,130,246,0.4)]'
+                  : 'text-[#64748B] hover:text-gray-300'
                   }`}
               >
                 {tab}
@@ -122,19 +122,19 @@ const EngagementVelocity = () => {
       </div>
 
       {/* Chart Area */}
-      <div className="px-8 py-6 h-[280px] flex items-end gap-2 sm:gap-4 lg:gap-6 w-full overflow-hidden">
+      <div className="px-8 py-6 h-[280px] flex items-end gap-3 w-full overflow-hidden">
         {chartData.map((item, index) => (
           <div key={index} className="flex flex-col items-center flex-1 h-full justify-end group">
             <div
-              className={`w-full max-w-[48px] rounded-t-sm transition-all duration-500 relative ${item.active
-                ? 'bg-gradient-to-b from-[#A855F7] to-[#34D399] shadow-[0_0_20px_rgba(52,211,153,0.3)]'
-                : 'bg-gradient-to-b from-[#4C1D95]/60 to-[#065F46]/60 group-hover:from-[#6D28D9]/80 group-hover:to-[#059669]/80 opacity-70'
+              className={`w-full rounded-t-lg transition-all duration-500 relative ${item.active
+                ? 'bg-gradient-to-b from-[#A855F7] via-[#3B82F6] to-[#34D399] shadow-[0_0_20px_rgba(52,211,153,0.3)]'
+                : 'bg-gradient-to-b from-[#3730A3]/70 to-[#0F766E]/70 group-hover:from-[#4338CA]/80 group-hover:to-[#0D9488]/80'
                 }`}
               style={{ height: `${item.height}%` }}
             >
               {/* Optional tooltip here */}
             </div>
-            <span className={`text-[9px] font-bold mt-4 uppercase tracking-wider ${item.active ? 'text-[#94A3B8]' : 'text-[#475569]'
+            <span className={`text-[10px] font-bold mt-4 uppercase tracking-wider ${item.active ? 'text-[#94A3B8]' : 'text-[#475569]'
               }`}>
               {item.label}
             </span>
