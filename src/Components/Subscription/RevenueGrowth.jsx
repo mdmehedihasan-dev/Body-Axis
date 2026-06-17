@@ -31,18 +31,16 @@ const RevenueGrowth = () => {
           </div>
         </div>
       </div>
-
       {/* Chart Area */}
       <div className="flex-1 flex items-end justify-between px-2 gap-2 sm:gap-4 mt-8 h-[220px]">
         {chartData.map((data, idx) => (
           <div key={idx} className="flex flex-col items-center w-full h-[160px] justify-end group">
             {/* Bar */}
-            <div 
-              className={`w-full rounded-sm transition-all duration-300 ${
-                data.active 
-                  ? 'bg-gradient-to-t from-[#2DD4BF] via-[#C084FC] to-[#FDF4FF] shadow-[0_0_30px_rgba(232,121,249,0.5)]' 
+            <div
+              className={`w-full rounded-sm transition-all duration-300 ${data.active
+                  ? 'bg-gradient-to-t from-[#2DD4BF] via-[#C084FC] to-[#FDF4FF] shadow-[0_0_30px_rgba(232,121,249,0.5)]'
                   : 'bg-gradient-to-t from-[#164E63] to-[#5B21B6] opacity-70 group-hover:opacity-100'
-              }`}
+                }`}
               style={{ height: `${data.val}%`, minHeight: '10%' }}
             ></div>
           </div>
