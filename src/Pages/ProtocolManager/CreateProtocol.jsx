@@ -97,7 +97,7 @@ const CreateProtocol = () => {
   return (
     <div className="min-h-screen p-8 bg-[#0A0D14] text-white">
       <div className="max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
-        
+
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -107,10 +107,10 @@ const CreateProtocol = () => {
             <h1 className="text-[28px] font-bold tracking-tight">New Performance Protocol</h1>
           </div>
           <div className="flex items-center gap-4">
-            <button className="px-6 py-2.5 rounded-xl border border-[#1E293B] text-white text-[13px] font-bold hover:bg-[#131B2F] transition-colors">
+            <button className="px-6 py-2.5 rounded-xl border border-[#1E293B] text-[#00c5ed] text-[13px] font-bold hover:bg-[#131B2F] transition-colors">
               Save Draft
             </button>
-            <button 
+            <button
               onClick={handlePublish}
               className="px-6 py-2.5 rounded-xl bg-[#3B82F6] hover:bg-blue-600 transition-colors text-white text-[13px] font-bold shadow-[0_0_15px_rgba(59,130,246,0.3)]"
             >
@@ -120,10 +120,10 @@ const CreateProtocol = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          
+
           {/* Left Column: Metadata */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="bg-[#131B2F] border border-[#1E293B] rounded-2xl p-6">
+            <div className="bg-[#1c2533] border border-[#1E293B] rounded-2xl p-6">
               <div className="flex items-center gap-3 mb-8">
                 <Layers className="text-[#38BDF8]" size={20} />
                 <h2 className="text-[11px] font-bold text-[#94A3B8] uppercase tracking-[0.15em]">Protocol Metadata</h2>
@@ -132,20 +132,20 @@ const CreateProtocol = () => {
               <div className="space-y-6">
                 <div>
                   <label className="block text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest mb-2">Protocol ID</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     value={metadata.id}
-                    onChange={(e) => setMetadata({...metadata, id: e.target.value})}
+                    onChange={(e) => setMetadata({ ...metadata, id: e.target.value })}
                     className="w-full bg-[#0A0D14] border border-[#1E293B] rounded-xl px-4 py-3 text-[14px] text-white outline-none focus:border-[#38BDF8] transition-colors"
                   />
                 </div>
 
                 <div>
                   <label className="block text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest mb-2">Protocol Name</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     value={metadata.name}
-                    onChange={(e) => setMetadata({...metadata, name: e.target.value})}
+                    onChange={(e) => setMetadata({ ...metadata, name: e.target.value })}
                     className="w-full bg-[#0A0D14] border border-[#1E293B] rounded-xl px-4 py-3 text-[14px] text-white outline-none focus:border-[#38BDF8] transition-colors"
                   />
                 </div>
@@ -153,9 +153,9 @@ const CreateProtocol = () => {
                 <div>
                   <label className="block text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest mb-2">Target Area</label>
                   <div className="relative">
-                    <select 
+                    <select
                       value={metadata.targetArea}
-                      onChange={(e) => setMetadata({...metadata, targetArea: e.target.value})}
+                      onChange={(e) => setMetadata({ ...metadata, targetArea: e.target.value })}
                       className="w-full bg-[#0A0D14] border border-[#1E293B] rounded-xl px-4 py-3 text-[14px] text-white outline-none focus:border-[#38BDF8] transition-colors appearance-none"
                     >
                       <option>Lower Back</option>
@@ -170,9 +170,9 @@ const CreateProtocol = () => {
                 <div>
                   <label className="block text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest mb-2">User Case</label>
                   <div className="relative">
-                    <select 
+                    <select
                       value={metadata.userCase}
-                      onChange={(e) => setMetadata({...metadata, userCase: e.target.value})}
+                      onChange={(e) => setMetadata({ ...metadata, userCase: e.target.value })}
                       className="w-full bg-[#0A0D14] border border-[#1E293B] rounded-xl px-4 py-3 text-[14px] text-white outline-none focus:border-[#38BDF8] transition-colors appearance-none"
                     >
                       <option>Stiff or Tight</option>
@@ -209,9 +209,9 @@ const CreateProtocol = () => {
                 <div>
                   <label className="block text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest mb-2">Duration</label>
                   <div className="relative">
-                    <select 
+                    <select
                       value={metadata.duration}
-                      onChange={(e) => setMetadata({...metadata, duration: e.target.value})}
+                      onChange={(e) => setMetadata({ ...metadata, duration: e.target.value })}
                       className="w-full bg-[#0A0D14] border border-[#1E293B] rounded-xl px-4 py-3 text-[14px] text-white outline-none focus:border-[#38BDF8] transition-colors appearance-none"
                     >
                       <option>~15 Minutes</option>
@@ -229,12 +229,12 @@ const CreateProtocol = () => {
 
           {/* Right Column: Session Builder */}
           <div className="lg:col-span-8">
-            <div className="bg-[#131B2F] border border-[#1E293B] rounded-2xl p-6 h-full">
+            <div className="bg-[#1c2533] border border-[#1E293B] rounded-2xl p-6 h-full">
               <div className="flex items-center gap-3 mb-6">
                 <Layers className="text-[#38BDF8]" size={20} />
                 <h2 className="text-[11px] font-bold text-white uppercase tracking-[0.15em]">Phase-Based Session Builder</h2>
               </div>
-              
+
               <div className="h-[1px] w-full bg-[#1E293B] mb-8"></div>
 
               <div className="space-y-10">
@@ -266,8 +266,8 @@ const CreateProtocol = () => {
                       {phase.exercises.map((exercise) => (
                         <div key={exercise.id} className="flex gap-4 items-center">
                           <div className="flex-1">
-                            <input 
-                              type="text" 
+                            <input
+                              type="text"
                               value={exercise.name}
                               onChange={(e) => updateExercise(phase.id, exercise.id, 'name', e.target.value)}
                               placeholder="Exercise name..."
@@ -275,22 +275,22 @@ const CreateProtocol = () => {
                             />
                           </div>
                           <div className="w-20">
-                            <input 
-                              type="text" 
+                            <input
+                              type="text"
                               value={exercise.sets}
                               onChange={(e) => updateExercise(phase.id, exercise.id, 'sets', e.target.value)}
                               className="w-full bg-[#0A0D14] border border-[#1E293B] rounded-xl px-4 py-3 text-[13px] text-white text-center outline-none focus:border-[#38BDF8] transition-colors"
                             />
                           </div>
                           <div className="w-24">
-                            <input 
-                              type="text" 
+                            <input
+                              type="text"
                               value={exercise.reps}
                               onChange={(e) => updateExercise(phase.id, exercise.id, 'reps', e.target.value)}
                               className="w-full bg-[#0A0D14] border border-[#1E293B] rounded-xl px-4 py-3 text-[13px] text-white text-center outline-none focus:border-[#38BDF8] transition-colors"
                             />
                           </div>
-                          <button 
+                          <button
                             onClick={() => removeExercise(phase.id, exercise.id)}
                             className="w-8 h-8 flex items-center justify-center text-[#EF4444] hover:bg-[#EF4444]/10 rounded-lg transition-colors"
                           >
@@ -302,7 +302,7 @@ const CreateProtocol = () => {
 
                     {/* Add Exercise Button */}
                     <div className="mt-4 flex justify-end">
-                      <button 
+                      <button
                         onClick={() => addExercise(phase.id)}
                         className="flex items-center gap-2 px-5 py-2.5 border border-[#3B82F6] text-[#3B82F6] hover:bg-[#3B82F6] hover:text-white rounded-xl text-[12px] font-bold transition-all shadow-[0_0_10px_rgba(59,130,246,0.1)] hover:shadow-[0_0_15px_rgba(59,130,246,0.3)]"
                       >
@@ -315,7 +315,7 @@ const CreateProtocol = () => {
               </div>
             </div>
           </div>
-          
+
         </div>
       </div>
     </div>
