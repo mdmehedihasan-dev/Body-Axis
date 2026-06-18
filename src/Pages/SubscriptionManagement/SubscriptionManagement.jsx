@@ -50,6 +50,7 @@ const mockSubscriptions = [
 const SubscriptionManagement = () => {
   const [filterStatus, setFilterStatus] = useState('All Subs');
   const [filterPlanType, setFilterPlanType] = useState('Plan Type');
+  const [showExportMenu, setShowExportMenu] = useState(false);
 
   // Apply filters
   const filteredSubscriptions = mockSubscriptions.filter(sub => {
@@ -100,6 +101,40 @@ const SubscriptionManagement = () => {
     });
 
     doc.save(`subscriptions_report_${new Date().getTime()}.pdf`);
+    setShowExportMenu(false);
+  };
+
+  const handleExportCSV = () => {
+    if (filteredSubscriptions.length === 0) {
+      alert("No data to export!");
+      return;
+    }
+
+    const headers = ["User", "Email", "Plan Type", "Renewal Date", "Payment", "Status"];
+    const csvRows = [headers.join(',')];
+
+    filteredSubscriptions.forEach(sub => {
+      const values = [
+        `"${sub.name}"`,
+        `"${sub.email}"`,
+        `"${sub.plan}"`,
+        `"${sub.date}"`,
+        `"${sub.payment}"`,
+        `"${sub.status}"`
+      ];
+      csvRows.push(values.join(','));
+    });
+
+    const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `subscriptions_report_${new Date().getTime()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    setShowExportMenu(false);
   };
 
   return (
@@ -112,13 +147,32 @@ const SubscriptionManagement = () => {
             <h1 className="text-[28px] font-bold tracking-tight mb-1">Subscription Management</h1>
             <p className="text-[#94A3B8] text-[13px] font-medium">Manage memberships, billing activity, and subscription performance.</p>
           </div>
-          <button
-            onClick={handleExportPDF}
-            className="flex items-center gap-2 bg-[#131B2F] border border-[#1E293B] hover:bg-[#1E293B] transition-colors text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-sm whitespace-nowrap"
-          >
-            <Download size={16} />
-            Export Report
-          </button>
+          <div className="relative">
+            <button
+              onClick={() => setShowExportMenu(!showExportMenu)}
+              className="flex items-center gap-2 bg-[#131B2F] border border-[#1E293B] hover:bg-[#1E293B] transition-colors text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-sm whitespace-nowrap"
+            >
+              <Download size={16} />
+              Export Report
+            </button>
+
+            {showExportMenu && (
+              <div className="absolute right-0 mt-2 w-48 bg-[#131B2F] border border-[#1E293B] rounded-xl shadow-xl overflow-hidden z-50">
+                <button
+                  onClick={handleExportPDF}
+                  className="w-full text-left px-4 py-3 text-sm text-white hover:bg-[#1E293B] transition-colors border-b border-[#1E293B]"
+                >
+                  Export as PDF
+                </button>
+                <button
+                  onClick={handleExportCSV}
+                  className="w-full text-left px-4 py-3 text-sm text-white hover:bg-[#1E293B] transition-colors"
+                >
+                  Export as CSV
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Metrics Row */}
