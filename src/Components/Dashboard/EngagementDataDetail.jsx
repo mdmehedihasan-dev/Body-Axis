@@ -17,8 +17,8 @@ const EngagementDataDetail = ({ className = '' }) => {
       </div>
 
       {/* Table */}
-      <div className="w-full overflow-x-auto">
-        <table className="w-full text-left border-collapse">
+      <div className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <table className="w-full text-left border-collapse min-w-[600px]">
           <thead>
             <tr className="border-b border-[#1E293B]">
               <th className="px-6 py-4 text-[10px] font-bold text-[#94A3B8] uppercase tracking-wider">Date</th>
