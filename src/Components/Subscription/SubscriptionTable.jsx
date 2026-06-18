@@ -14,9 +14,9 @@ const SubscriptionTable = ({ subscriptions, filterStatus, setFilterStatus, filte
   return (
     <div className="flex flex-col flex-1 gap-6">
       {/* Table Controls */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         {/* Pills */}
-        <div className="flex items-center bg-[#0B1221] p-1.5 rounded-full border border-slate-800/80 h-[48px]">
+        <div className="flex items-center bg-[#0B1221] p-1.5 rounded-full border border-slate-800/80 h-[48px] overflow-x-auto w-full md:w-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {tabs.map(tab => (
             <button
               key={tab}
@@ -24,7 +24,7 @@ const SubscriptionTable = ({ subscriptions, filterStatus, setFilterStatus, filte
                 setFilterStatus(tab);
                 setCurrentPage(1);
               }}
-              className={`px-6 h-full rounded-full text-sm font-medium transition-all ${filterStatus === tab
+              className={`px-6 h-full rounded-full text-sm font-medium transition-all whitespace-nowrap ${filterStatus === tab
                 ? 'bg-[#A5B4FC] text-[#0B1221] shadow-sm'
                 : 'text-slate-400 hover:text-white'
                 }`}
@@ -35,15 +35,15 @@ const SubscriptionTable = ({ subscriptions, filterStatus, setFilterStatus, filte
         </div>
 
         {/* Dropdowns */}
-        <div className="flex items-center gap-4">
-          <div className="relative h-[48px]">
+        <div className="flex items-center gap-4 w-full md:w-auto">
+          <div className="relative h-[48px] flex-1 md:flex-none">
             <select
               value={filterPlanType}
               onChange={(e) => {
                 setFilterPlanType(e.target.value);
                 setCurrentPage(1);
               }}
-              className="bg-[#0B1221] border border-slate-800/80 rounded-full pl-5 pr-10 h-full text-sm font-medium text-slate-400 outline-none appearance-none cursor-pointer hover:border-slate-700 transition-colors"
+              className="bg-[#0B1221] border border-slate-800/80 rounded-full pl-5 pr-10 h-full w-full text-sm font-medium text-slate-400 outline-none appearance-none cursor-pointer hover:border-slate-700 transition-colors"
             >
               <option>Plan Type</option>
               <option>Monthly Elite</option>
@@ -52,8 +52,8 @@ const SubscriptionTable = ({ subscriptions, filterStatus, setFilterStatus, filte
             </select>
             <ChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
           </div>
-          <div className="relative h-[48px]">
-            <select className="bg-[#0B1221] border border-slate-800/80 rounded-full pl-5 pr-10 h-full text-sm font-medium text-slate-400 outline-none appearance-none cursor-pointer hover:border-slate-700 transition-colors">
+          <div className="relative h-[48px] flex-1 md:flex-none">
+            <select className="bg-[#0B1221] border border-slate-800/80 rounded-full pl-5 pr-10 h-full w-full text-sm font-medium text-slate-400 outline-none appearance-none cursor-pointer hover:border-slate-700 transition-colors">
               <option>Revenue Range</option>
               <option>$0 - $50</option>
               <option>$50 - $200</option>

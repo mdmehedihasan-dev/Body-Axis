@@ -18,8 +18,16 @@ const MainLayout = () => {
       </div>
 
       {/* Drawer for Mobile */}
-      <Drawer placement="left" onClose={onClose} open={open} width={250}>
-        <Sidebar />
+      <Drawer 
+        placement="left" 
+        onClose={onClose} 
+        open={open} 
+        width={288} 
+        closable={false}
+        styles={{ body: { padding: 0, backgroundColor: '#0b1120' }, wrapper: { backgroundColor: '#0b1120' } }}
+        bodyStyle={{ padding: 0, backgroundColor: '#0b1120' }} // fallback for antd v4
+      >
+        <Sidebar closeDrawer={onClose} />
       </Drawer>
 
       {/* Main Content Wrapper */}

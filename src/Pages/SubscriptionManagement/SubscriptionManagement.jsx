@@ -138,26 +138,26 @@ const SubscriptionManagement = () => {
   };
 
   return (
-    <div className="min-h-screen p-8 bg-[#0A0D14] text-white font-sans">
+    <div className="min-h-screen p-4 md:p-8 bg-[#0A0D14] text-white font-sans">
       <div className="max-w-[1600px] mx-auto animate-in fade-in duration-500">
 
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
           <div>
-            <h1 className="text-[28px] font-bold tracking-tight mb-1">Subscription Management</h1>
+            <h1 className="text-2xl md:text-[28px] font-bold tracking-tight mb-1">Subscription Management</h1>
             <p className="text-[#94A3B8] text-[13px] font-medium">Manage memberships, billing activity, and subscription performance.</p>
           </div>
-          <div className="relative">
+          <div className="relative w-full md:w-auto">
             <button
               onClick={() => setShowExportMenu(!showExportMenu)}
-              className="flex items-center gap-2 bg-[#131B2F] border border-[#1E293B] hover:bg-[#1E293B] transition-colors text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-sm whitespace-nowrap"
+              className="w-full md:w-auto flex items-center justify-center gap-2 bg-[#131B2F] border border-[#1E293B] hover:bg-[#1E293B] transition-colors text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-sm whitespace-nowrap"
             >
               <Download size={16} />
               Export Report
             </button>
 
             {showExportMenu && (
-              <div className="absolute right-0 mt-2 w-48 bg-[#131B2F] border border-[#1E293B] rounded-xl shadow-xl overflow-hidden z-50">
+              <div className="absolute right-0 mt-2 w-full md:w-48 bg-[#131B2F] border border-[#1E293B] rounded-xl shadow-xl overflow-hidden z-50">
                 <button
                   onClick={handleExportPDF}
                   className="w-full text-left px-4 py-3 text-sm text-white hover:bg-[#1E293B] transition-colors border-b border-[#1E293B]"

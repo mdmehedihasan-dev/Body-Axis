@@ -27,11 +27,11 @@ const Sidebar = ({ closeDrawer }) => {
   ];
 
   return (
-    <div className="w-72 bg-[#0b1120] h-screen flex flex-col shadow-2xl">
+    <div className="w-full h-full bg-[#0b1120] flex flex-col shadow-2xl">
       {/* Sidebar Header */}
       <div className="p-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img src={adminlogo} alt="Body-Axis" className="w-50 h-auto" />
+          <img src={adminlogo} alt="Body-Axis" className="max-w-[200px] w-full h-auto" />
         </div>
       </div>
 

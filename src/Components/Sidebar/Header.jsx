@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Bell } from "lucide-react";
+import { Bell, Menu } from "lucide-react";
 import adminImage from "../../assets/image/adminkickclick.jpg";
 
 const Header = ({ showDrawer }) => {
@@ -16,10 +16,20 @@ const Header = ({ showDrawer }) => {
   ];
 
   return (
-    <div className="relative bg-[#0b1120] h-[88px] flex items-center justify-end px-8 shadow-sm">
+    <div className="relative bg-[#0b1120] h-[88px] flex items-center justify-between px-4 lg:px-8 shadow-sm">
+      
+      {/* Mobile Menu Button */}
+      <div className="flex items-center lg:hidden">
+        <button
+          onClick={showDrawer}
+          className="text-[#94A3B8] hover:text-white transition-colors"
+        >
+          <Menu size={24} />
+        </button>
+      </div>
 
       {/* Right Side */}
-      <div className="flex items-center gap-8">
+      <div className="flex items-center gap-4 lg:gap-8 ml-auto">
         {/* Notifications */}
         <button
           className="relative text-[#94A3B8] hover:text-white transition-colors"
