@@ -31,7 +31,7 @@ const Sidebar = ({ closeDrawer }) => {
       {/* Sidebar Header */}
       <div className="p-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img src={adminlogo} alt="Body-Axis" className="w-32 h-auto" />
+          <img src={adminlogo} alt="Body-Axis" className="w-50 h-auto" />
         </div>
       </div>
 
